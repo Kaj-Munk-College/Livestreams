@@ -6,9 +6,9 @@
           <v-col>
             <h1 class="text-center">Coming soon</h1>
             <h3 class="text-center">Kleinkunstavond</h3>
-            <h4 class="text-center">13 November 20:00</h4>
+            <h4 class="text-center">13 November 19:30</h4>
             <br />
-            <flip-countdown deadline="2020-11-13 20:00:00"></flip-countdown>
+            <flip-countdown deadline="2020-11-13 19:30:00"></flip-countdown>
             <br />
             <span class="fill-width" style="width: 100%">
               <v-btn
@@ -56,8 +56,8 @@ export default {
     addToCalendar: function () {
       this.loading = true;
       const event = {
-        start: [2020, 11, 13, 20, 0],
-        duration: { hours: 1, minutes: 20 },
+        start: [2020, 11, 13, 19, 30],
+        duration: { hours: 1, minutes: 0 },
         title: "Kleinkunstavond",
         description: "Bekijk de kleinkunstavond",
         location: "Livestream",
