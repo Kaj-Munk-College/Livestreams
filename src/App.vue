@@ -65,7 +65,7 @@ export default {
         categories: ["Kaj Munk College", "kleinkunstavond"],
         status: "CONFIRMED",
         busyStatus: "BUSY",
-        organizer: { name: "Kaj Munk College", email: "av@kajmunk.nl" },
+        organizer: { name: "Kaj munkcollege", email: "av@kajmunk.nl" },
       };
 
       ics.createEvent(event, (error, value) => {
