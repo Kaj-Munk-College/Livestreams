@@ -10,11 +10,15 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "file-saver": "^2.0.2",
+    "firebase": "^8.0.1",
     "ics": "^2.26.1",
+    "js-cookie": "^2.2.1",
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
+    "vue-youtube-embed": "^2.2.2",
     "vue2-flip-countdown": "^0.11.1",
+    "vuefire": "^2.2.4",
     "vuetify": "^2.2.11",
     "vuex": "^3.4.0"
   },
@@ -28,6 +32,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "material-design-icons-iconfont": "^6.1.0",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "vue-cli-plugin-vuetify": "~2.0.7",
