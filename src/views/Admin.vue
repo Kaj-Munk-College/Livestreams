@@ -95,10 +95,15 @@
                 label="Youtube URL"
                 id="yturl"
                 v-model="youtubeURL"
+                :rules="[rules.required, rules.url]"
                 dense
               ></v-text-field>
             </v-card-text>
             <v-card-actions>
+              <v-spacer></v-spacer>
+              <span v-if="!savedURL" style="color: red"
+                >Je hebt nog niet opgeslagen.
+              </span>
               <v-spacer></v-spacer>
               <v-btn @click="saveYoutubeURL" color="success">Save</v-btn>
             </v-card-actions>
@@ -135,13 +140,23 @@ export default {
     youtubeURL: "",
     youtubeURLobject: "",
     youtubeID: "",
+    savedURL: true,
+
+    rules: {
+      required: (value) => !!value || "Required.",
+      url: (value) => {
+        const pattern = /(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/;
+        return pattern.test(value) || "Invalid URL";
+      },
+    },
   }),
 
   methods: {
     saveYoutubeURL: function() {
-      var regex = /^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
+      var regex = /(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/;
       if (regex.test(this.youtubeURL)) {
         db.ref("youtubeurl").set(this.youtubeURL);
+        this.savedURL = true;
       } else {
         console.warn("regex failed");
       }
@@ -155,10 +170,11 @@ export default {
     },
     youtubeURLobject: function(val) {
       console.log(val);
-      this.youtubeURL = youtubeURLobject[".value"];
+      this.youtubeURL = this.youtubeURLobject[".value"];
     },
     youtubeURL: function(val) {
       this.youtubeID = getIdFromURL(val);
+      this.savedURL = this.youtubeURL == this.youtubeURLobject[".value"];
     },
   },
 
@@ -170,7 +186,7 @@ export default {
   },
 
   firebase: {
-    youtubeURL: db.ref("youtubeurl"),
+    youtubeURLobject: db.ref("youtubeurl"),
   },
 };
 </script>
