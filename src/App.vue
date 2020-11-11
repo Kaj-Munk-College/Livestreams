@@ -1,53 +1,19 @@
 <template>
   <v-app>
     <v-main>
-      <v-container fill-height fluid fill-width>
-        <v-row align="center" justify="center">
-          <v-col>
-            <h1 class="text-center">Coming soon</h1>
-            <h3 class="text-center">Kleinkunstavond</h3>
-            <h4 class="text-center">13 November 19:30</h4>
-            <br />
-            <flip-countdown deadline="2020-11-13 19:30:00"></flip-countdown>
-            <br />
-            <span class="fill-width" style="width: 100%">
-              <v-btn
-                style="
-                  margin: auto !important;
-                  text-align: center;
-                  display: flex;
-                "
-                class="ma-2"
-                :loading="loading"
-                :disabled="loading"
-                color="secondary"
-                @click="addToCalendar"
-              >
-                Voeg toe aan calender
-              </v-btn>
-            </span>
-          </v-col>
-        </v-row>
-      </v-container>
+      <router-view></router-view>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import FlipCountdown from "vue2-flip-countdown";
-import { saveAs } from "file-saver";
-import * as ics from "ics";
-
 export default {
   name: "App",
 
-  components: {
-    FlipCountdown,
-  },
+  components: {},
 
   data: () => ({
     //
-    loading: false,
   }),
 
   mounted() {},
