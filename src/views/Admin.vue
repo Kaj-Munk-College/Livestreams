@@ -95,10 +95,15 @@
                 label="Youtube URL"
                 id="yturl"
                 v-model="youtubeURL"
+                :rules="[rules.required, rules.url]"
                 dense
               ></v-text-field>
             </v-card-text>
             <v-card-actions>
+              <v-spacer></v-spacer>
+              <span v-if="!savedURL" style="color: red"
+                >Je hebt nog niet opgeslagen.
+              </span>
               <v-spacer></v-spacer>
               <v-btn @click="saveYoutubeURL" color="success">Save</v-btn>
             </v-card-actions>
@@ -115,6 +120,31 @@
                 :video-id="youtubeID"
               ></youtube>
             </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col cols="auto" xs="12" sm="6" md="3">
+          <v-card>
+            <v-card-title primary-title>
+              Show Stream
+            </v-card-title>
+            <v-card-subtitle>
+              Show the livestream instead of the countdown (True = show)
+            </v-card-subtitle>
+            <v-card-text>
+              <v-switch
+                inset
+                label="Show Stream"
+                v-model="showStream"
+              ></v-switch>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <span v-if="!savedShow" style="color: red"
+                >Je hebt nog niet opgeslagen.
+              </span>
+              <v-spacer></v-spacer>
+              <v-btn @click="saveShowStream" color="success">Save</v-btn>
+            </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
@@ -135,16 +165,37 @@ export default {
     youtubeURL: "",
     youtubeURLobject: "",
     youtubeID: "",
+    savedURL: true,
+
+    showStream: false,
+    showStreamobject: null,
+    savedShow: true,
+
+    rules: {
+      required: (value) => !!value || "Required.",
+      url: (value) => {
+        //eslint-disable-next-line no-useless-escape
+        const pattern = /(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/;
+        return pattern.test(value) || "Invalid URL";
+      },
+    },
   }),
 
   methods: {
     saveYoutubeURL: function() {
-      var regex = /^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
+      //eslint-disable-next-line no-useless-escape
+      var regex = /(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/;
       if (regex.test(this.youtubeURL)) {
         db.ref("youtubeurl").set(this.youtubeURL);
+        this.savedURL = true;
       } else {
         console.warn("regex failed");
       }
+    },
+
+    saveShowStream: function() {
+      db.ref("showstream").set(this.showStream);
+      this.savedShow = true;
     },
   },
 
@@ -155,10 +206,17 @@ export default {
     },
     youtubeURLobject: function(val) {
       console.log(val);
-      this.youtubeURL = youtubeURLobject[".value"];
+      this.youtubeURL = this.youtubeURLobject[".value"];
     },
     youtubeURL: function(val) {
       this.youtubeID = getIdFromURL(val);
+      this.savedURL = this.youtubeURL == this.youtubeURLobject[".value"];
+    },
+    showStreamobject: function(val) {
+      this.showStream = val[".value"];
+    },
+    showStream: function() {
+      this.savedShow = this.showStream == this.showStreamobject[".value"];
     },
   },
 
@@ -170,7 +228,8 @@ export default {
   },
 
   firebase: {
-    youtubeURL: db.ref("youtubeurl"),
+    youtubeURLobject: db.ref("youtubeurl"),
+    showStreamobject: db.ref("showstream"),
   },
 };
 </script>
