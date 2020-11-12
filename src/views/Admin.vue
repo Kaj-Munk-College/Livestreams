@@ -145,6 +145,7 @@ export default {
     rules: {
       required: (value) => !!value || "Required.",
       url: (value) => {
+        //eslint-disable-next-line no-useless-escape
         const pattern = /(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/;
         return pattern.test(value) || "Invalid URL";
       },
@@ -153,6 +154,7 @@ export default {
 
   methods: {
     saveYoutubeURL: function() {
+      //eslint-disable-next-line no-useless-escape
       var regex = /(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/;
       if (regex.test(this.youtubeURL)) {
         db.ref("youtubeurl").set(this.youtubeURL);

@@ -1,38 +1,67 @@
 <template>
-  <v-container fill-height fluid fill-width>
-    <v-row align="center" justify="center">
-      <v-col>
-        <h1 class="text-center">Coming soon</h1>
-        <h3 class="text-center">Kleinkunstavond</h3>
-        <h4 class="text-center">13 November 19:30</h4>
-        <br />
-        <flip-countdown deadline="2020-11-13 19:30:00"></flip-countdown>
-        <br />
-        <span class="fill-width" style="width: 100%">
-          <v-btn
-            style="
+  <div>
+    <div v-if="!showStream">
+      <v-container fill-height fluid fill-width>
+        <v-row align="center" justify="center">
+          <v-col>
+            <h1 class="text-center">Coming soon</h1>
+            <h3 class="text-center">Kleinkunstavond</h3>
+            <h4 class="text-center">13 November 19:30</h4>
+            <br />
+            <flip-countdown deadline="2020-11-13 19:30:00"></flip-countdown>
+            <br />
+            <span class="fill-width" style="width: 100%">
+              <v-btn
+                style="
                   margin: auto !important;
                   text-align: center;
                   display: flex;
                 "
-            class="ma-2"
-            :loading="loading"
-            :disabled="loading"
-            color="secondary"
-            @click="addToCalendar"
-          >
-            Voeg toe aan calender
-          </v-btn>
-        </span>
-      </v-col>
-    </v-row>
-  </v-container>
+                class="ma-2"
+                :loading="loading"
+                :disabled="loading"
+                color="secondary"
+                @click="addToCalendar"
+              >
+                Voeg toe aan calender
+              </v-btn>
+            </span>
+          </v-col>
+        </v-row>
+      </v-container>
+    </div>
+    <div v-if="showStream">
+      <v-container>
+        <v-row>
+          <v-col>
+            <v-card ref="youtubecard">
+              <v-card-title primary-title>
+                <h3>Kleinkunst live stream</h3>
+              </v-card-title>
+              <v-card-text>
+                <v-spacer></v-spacer>
+                <youtube
+                  :player-width="youtubeWidth - 165"
+                  :player-height="youtubeHeight"
+                  :video-id="youtubeID"
+                  class="videoplayer"
+                ></youtube>
+                <v-spacer></v-spacer>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </div>
+  </div>
 </template>
 
 <script>
 import FlipCountdown from "vue2-flip-countdown";
 import { saveAs } from "file-saver";
 import * as ics from "ics";
+import { getIdFromURL } from "vue-youtube-embed";
+import { db } from "../main";
 
 export default {
   name: "Home",
@@ -44,9 +73,21 @@ export default {
   data: () => ({
     //
     loading: false,
+    showStream: false,
+    youtubeURL: "",
+    youtubeURLobject: "",
+    youtubeID: "",
+
+    windowWidth: window.innerWidth,
   }),
 
-  mounted() {},
+  mounted() {
+    console.log(db);
+
+    window.onresize = () => {
+      this.windowWidth = window.innerWidth;
+    };
+  },
 
   methods: {
     addToCalendar: function() {
@@ -77,5 +118,37 @@ export default {
       });
     },
   },
+
+  watch: {
+    youtubeURLobject: function(val) {
+      console.log(val);
+      this.youtubeURL = this.youtubeURLobject[".value"];
+    },
+    youtubeURL: function(val) {
+      this.youtubeID = getIdFromURL(val);
+      this.savedURL = this.youtubeURL == this.youtubeURLobject[".value"];
+    },
+  },
+
+  computed: {
+    youtubeWidth() {
+      // return this.$refs.youtubecard.innerWidth;
+      return 100;
+    },
+
+    youtubeHeight() {
+      return (((screen.availWidth - 50) / 16) * 9) / 1.5;
+    },
+  },
+
+  firebase: {
+    youtubeURLobject: db.ref("youtubeurl"),
+  },
 };
 </script>
+
+<style lang="scss" scoped>
+.videoplayer {
+  left: 50%;
+}
+</style>
