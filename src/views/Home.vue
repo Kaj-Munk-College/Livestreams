@@ -34,18 +34,21 @@
       <v-container>
         <v-row>
           <v-col>
-            <v-card ref="youtubecard">
+            <v-card id="youtubecard">
               <v-card-title primary-title>
                 <h3>Kleinkunst live stream</h3>
               </v-card-title>
-              <v-card-text>
+              <v-card-text ref="youtubecard">
                 <v-spacer></v-spacer>
                 <youtube
-                  :player-width="youtubeWidth - 165"
+                  :player-width="youtubeWidth"
                   :player-height="youtubeHeight"
                   :video-id="youtubeID"
                   class="videoplayer"
                 ></youtube>
+                <a :href="youtubeURL"
+                  ><h4>Werkt de bovenstaande video niet? Klik dan hier</h4></a
+                >
                 <v-spacer></v-spacer>
               </v-card-text>
             </v-card>
@@ -73,12 +76,14 @@ export default {
   data: () => ({
     //
     loading: false,
-    showStream: false,
+    showStream: true,
     youtubeURL: "",
     youtubeURLobject: "",
     youtubeID: "",
 
     windowWidth: window.innerWidth,
+    showStreamobject: null,
+    document: document,
   }),
 
   mounted() {
@@ -120,29 +125,34 @@ export default {
   },
 
   watch: {
-    youtubeURLobject: function(val) {
-      console.log(val);
+    youtubeURLobject: function() {
       this.youtubeURL = this.youtubeURLobject[".value"];
     },
     youtubeURL: function(val) {
       this.youtubeID = getIdFromURL(val);
       this.savedURL = this.youtubeURL == this.youtubeURLobject[".value"];
     },
+    showStreamobject: function(val) {
+      this.showStream = val[".value"];
+    },
   },
 
   computed: {
     youtubeWidth() {
-      // return this.$refs.youtubecard.innerWidth;
-      return 100;
+      return document.getElementById("youtubecard")
+        ? document.getElementById("youtubecard").offsetWidth - 50
+        : 300;
+      // return 100;
     },
 
     youtubeHeight() {
-      return (((screen.availWidth - 50) / 16) * 9) / 1.5;
+      return (this.youtubeWidth / 16) * 9;
     },
   },
 
   firebase: {
     youtubeURLobject: db.ref("youtubeurl"),
+    showStreamobject: db.ref("showstream"),
   },
 };
 </script>
