@@ -122,6 +122,31 @@
             </v-card-text>
           </v-card>
         </v-col>
+        <v-col cols="auto" xs="12" sm="6" md="3">
+          <v-card>
+            <v-card-title primary-title>
+              Show Stream
+            </v-card-title>
+            <v-card-subtitle>
+              Show the livestream instead of the countdown (True = show)
+            </v-card-subtitle>
+            <v-card-text>
+              <v-switch
+                inset
+                label="Show Stream"
+                v-model="showStream"
+              ></v-switch>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <span v-if="!savedShow" style="color: red"
+                >Je hebt nog niet opgeslagen.
+              </span>
+              <v-spacer></v-spacer>
+              <v-btn @click="saveShowStream" color="success">Save</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
       </v-row>
     </v-container>
   </div>
@@ -141,6 +166,10 @@ export default {
     youtubeURLobject: "",
     youtubeID: "",
     savedURL: true,
+
+    showStream: false,
+    showStreamobject: null,
+    savedShow: true,
 
     rules: {
       required: (value) => !!value || "Required.",
@@ -163,6 +192,11 @@ export default {
         console.warn("regex failed");
       }
     },
+
+    saveShowStream: function() {
+      db.ref("showstream").set(this.showStream);
+      this.savedShow = true;
+    },
   },
 
   watch: {
@@ -178,6 +212,12 @@ export default {
       this.youtubeID = getIdFromURL(val);
       this.savedURL = this.youtubeURL == this.youtubeURLobject[".value"];
     },
+    showStreamobject: function(val) {
+      this.showStream = val[".value"];
+    },
+    showStream: function() {
+      this.savedShow = this.showStream == this.showStreamobject[".value"];
+    },
   },
 
   mounted() {
@@ -189,6 +229,7 @@ export default {
 
   firebase: {
     youtubeURLobject: db.ref("youtubeurl"),
+    showStreamobject: db.ref("showstream"),
   },
 };
 </script>
