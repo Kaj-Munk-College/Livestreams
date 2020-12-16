@@ -6,9 +6,9 @@
           <v-col>
             <h1 class="text-center">Coming soon</h1>
             <h3 class="text-center">Live Talkshow</h3>
-            <h4 class="text-center">6 Januari 19:30</h4>
+            <h4 class="text-center">6 Januari 18:30</h4>
             <br />
-            <flip-countdown deadline="2020-01-13 19:30:00"></flip-countdown>
+            <flip-countdown deadline="2021-01-13 18:30:00"></flip-countdown>
             <br />
             <span class="fill-width" style="width: 100%">
               <v-btn
@@ -105,7 +105,7 @@ export default {
     addToCalendar: function() {
       this.loading = true;
       const event = {
-        start: [2021, 11, 13, 19, 30],
+        start: [2021, 11, 13, 18, 30],
         duration: { hours: 1, minutes: 0 },
         title: "Livestream",
         description: "Bekijk de livestream",
