@@ -5,10 +5,10 @@
         <v-row align="center" justify="center">
           <v-col>
             <h1 class="text-center">Coming soon</h1>
-            <h3 class="text-center">Live Talkshow</h3>
-            <h4 class="text-center">6 Januari 18:30</h4>
+            <h3 class="text-center">Live Informatie Avond</h3>
+            <h4 class="text-center">6 Januari 19:30</h4>
             <br />
-            <flip-countdown deadline="2021-01-13 18:30:00"></flip-countdown>
+            <flip-countdown deadline="2021-01-13 19:30:00"></flip-countdown>
             <br />
             <span class="fill-width" style="width: 100%">
               <v-btn
@@ -60,7 +60,7 @@
     <v-footer absolute class="font-weight-medium">
       <v-col class="text-center" cols="12">
         {{ new Date().getFullYear() }} — <strong>Kaj Munk College</strong> —
-        <i>Versie: 1.1.1</i>
+        <i>Versie: 1.1.2</i>
       </v-col>
     </v-footer>
   </div>
@@ -105,7 +105,7 @@ export default {
     addToCalendar: function() {
       this.loading = true;
       const event = {
-        start: [2021, 11, 13, 18, 30],
+        start: [2021, 11, 13, 19, 30],
         duration: { hours: 1, minutes: 0 },
         title: "Livestream",
         description: "Bekijk de livestream",
