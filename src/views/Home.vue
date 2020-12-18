@@ -5,10 +5,10 @@
         <v-row align="center" justify="center">
           <v-col>
             <h1 class="text-center">Coming soon</h1>
-            <h3 class="text-center">Kleinkunstavond</h3>
-            <h4 class="text-center">13 November 19:30</h4>
+            <h3 class="text-center">Live Informatie Avond</h3>
+            <h4 class="text-center">6 Januari 19:30</h4>
             <br />
-            <flip-countdown deadline="2020-11-13 19:30:00"></flip-countdown>
+            <flip-countdown deadline="2021-01-13 19:30:00"></flip-countdown>
             <br />
             <span class="fill-width" style="width: 100%">
               <v-btn
@@ -36,7 +36,7 @@
           <v-col>
             <v-card id="youtubecard">
               <v-card-title primary-title>
-                <h3>Kleinkunst live stream</h3>
+                <h3>Live stream</h3>
               </v-card-title>
               <v-card-text ref="youtubecard">
                 <v-spacer></v-spacer>
@@ -56,6 +56,13 @@
         </v-row>
       </v-container>
     </div>
+
+    <v-footer absolute class="font-weight-medium">
+      <v-col class="text-center" cols="12">
+        {{ new Date().getFullYear() }} — <strong>Kaj Munk College</strong> —
+        <i>Versie: 1.1.2</i>
+      </v-col>
+    </v-footer>
   </div>
 </template>
 
@@ -98,13 +105,13 @@ export default {
     addToCalendar: function() {
       this.loading = true;
       const event = {
-        start: [2020, 11, 13, 19, 30],
+        start: [2021, 11, 13, 19, 30],
         duration: { hours: 1, minutes: 0 },
-        title: "Kleinkunstavond",
-        description: "Bekijk de kleinkunstavond",
+        title: "Livestream",
+        description: "Bekijk de livestream",
         location: "Livestream",
-        url: "https://kleinkunstlive.kajmunk.nl",
-        categories: ["Kaj Munk College", "kleinkunstavond"],
+        url: "https://livestream.kajmunk.nl",
+        categories: ["Kaj Munk College", "livestream"],
         status: "CONFIRMED",
         busyStatus: "BUSY",
         organizer: { name: "Kaj munkcollege", email: "av@kajmunk.nl" },
@@ -118,7 +125,7 @@ export default {
 
         var data = new Blob([value], { type: "text/x-vCalendar" });
 
-        saveAs(data, "kleinkunstavond.ics");
+        saveAs(data, "kajmunkstream.ics");
         this.loading = false;
       });
     },
