@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@growthbunker/vuesocial": "^0.1.2",
     "core-js": "^3.6.5",
     "file-saver": "^2.0.2",
     "firebase": "^8.0.1",

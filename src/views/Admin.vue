@@ -1,86 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer v-model="drawer" absolute>
-      <v-list nav dense>
-        <v-list-item-group
-          v-model="group"
-          active-class="deep-purple--text text--accent-4"
-        >
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon>mdi-home</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Home</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon>mdi-account</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Account</v-list-item-title>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-    </v-navigation-drawer>
-    <v-app-bar color="deep-blue" dark>
-      <!-- <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon> -->
-
-      <v-toolbar-title>Kleinkunstlive Admin Panel</v-toolbar-title>
-
-      <v-spacer></v-spacer>
-
-      <div class="text-center">
-        <v-menu>
-          <template v-slot:activator="{ on: menu }">
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on: tooltip }">
-                <v-btn v-on="{ ...tooltip, ...menu }" icon
-                  ><v-icon large>settings</v-icon></v-btn
-                >
-              </template>
-              <span>Settings</span>
-            </v-tooltip>
-          </template>
-          <v-list>
-            <v-list-item @click="darkMode = !darkMode">
-              <v-list-item-icon
-                ><v-icon v-if="darkMode">check_box</v-icon
-                ><v-icon v-else
-                  >check_box_outline_blank</v-icon
-                ></v-list-item-icon
-              >
-              <v-list-item-content>
-                <v-list-item-title>Dark mode</v-list-item-title>
-              </v-list-item-content>
-              <v-list-item-icon
-                ><v-icon>brightness_medium</v-icon></v-list-item-icon
-              >
-            </v-list-item>
-            <v-list-item class="noUnderline">
-              <router-link v-if="$store.state.user" to="login"
-                ><v-list-item-content>
-                  <v-list-item-title>Ingelogd als</v-list-item-title>
-                  <v-list-item-subtitle>{{
-                    $store.state.user.email
-                  }}</v-list-item-subtitle>
-                </v-list-item-content></router-link
-              >
-
-              <router-link v-else to="login"
-                ><v-list-item-content>
-                  <v-list-item-title>Je bent niet ingelogd</v-list-item-title>
-                  <v-list-item-subtitle
-                    >klik hier om in te loggen</v-list-item-subtitle
-                  >
-                </v-list-item-content></router-link
-              >
-              <v-list-item-icon><v-icon>settings</v-icon> </v-list-item-icon>
-            </v-list-item>
-          </v-list>
-        </v-menu>
-      </div>
-    </v-app-bar>
-
+    <navbar></navbar>
     <v-container fluid>
       <v-row dense>
         <v-col cols="auto" xs="12" sm="12" md="6">
@@ -153,15 +73,18 @@
 </template>
 
 <script>
-import Cookies from "js-cookie";
 import { db } from "../main";
 import { getIdFromURL } from "vue-youtube-embed";
+import navbar from "./NavBar.vue";
 
 export default {
+  components: {
+    navbar,
+  },
+
   data: () => ({
     drawer: false,
     group: null,
-    darkMode: false,
     youtubeURL: "",
     youtubeURLobject: "",
     youtubeID: "",
@@ -200,10 +123,6 @@ export default {
   },
 
   watch: {
-    darkMode: function(val) {
-      this.$vuetify.theme.dark = val;
-      Cookies.set("darkMode", this.darkMode);
-    },
     youtubeURLobject: function(val) {
       console.log(val);
       this.youtubeURL = this.youtubeURLobject[".value"];
@@ -218,13 +137,6 @@ export default {
     showStream: function() {
       this.savedShow = this.showStream == this.showStreamobject[".value"];
     },
-  },
-
-  mounted() {
-    this.darkMode =
-      Cookies.get("darkMode") != undefined
-        ? Cookies.get("darkMode")
-        : (this.darkMode = false);
   },
 
   firebase: {
