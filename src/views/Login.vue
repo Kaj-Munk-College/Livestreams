@@ -111,13 +111,32 @@
             >Account</v-card-title
           >
           <v-card-subtitle
-            >Je bent momenteel ingelogd met: {{ $store.state.user.email }}
+            >U bent momenteel ingelogd met: <br />
+            <i>{{ $store.state.user.email }}</i>
           </v-card-subtitle>
 
           <v-card-text class="text-center justify-center">
             <v-btn @click="signOut" color="warning"
               >Klik hier om uit te loggen</v-btn
             >
+
+            <br /><br />
+            <br />
+            <br />
+            <p>
+              U wordt momenteel aangesproken met: <br />
+              <i>{{ $store.state.user.displayName }}</i>
+            </p>
+            <v-text-field
+              name="changeUsername"
+              label="Gebruikersnaam veranderen?"
+              id="changeUsername"
+              solo
+              hide-details="auto"
+              class="mb-3"
+              v-model="changeUsername"
+            ></v-text-field>
+            <v-btn color="success" @click="changeDisplayName">Verander</v-btn>
           </v-card-text>
 
           <v-card-actions class="text-center justify-center">
@@ -147,6 +166,7 @@ export default {
       password: "",
       wrongPassword: false,
       dialog: false,
+      changeUsername: "",
     };
   },
   methods: {
@@ -203,6 +223,16 @@ export default {
 
     signOut() {
       firebase.auth().signOut();
+    },
+
+    changeDisplayName() {
+      if (this.changeUsername != "" && this.changeUsername != null)
+        firebase
+          .auth()
+          .currentUser.updateProfile({ displayName: this.changeUsername });
+
+      console.log(firebase.auth().currentUser);
+      this.$store.commit("setUser", firebase.auth().currentUser);
     },
   },
 };

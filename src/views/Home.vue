@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div v-if="!showStream">
+    <navbar></navbar>
+    <div v-if="!showStream && !endofstream">
       <v-container fill-height fluid fill-width>
         <v-row align="center" justify="center">
           <v-col>
@@ -50,11 +51,11 @@
         </v-row>
       </v-container>
     </div>
-    <div v-if="showStream">
-      <v-container>
+    <div v-if="showStream && !endofstream">
+      <v-container fill-width>
         <v-row>
-          <v-col>
-            <v-card id="youtubecard">
+          <v-col cols="7">
+            <v-card id="youtubecard" ref="streamcard">
               <v-card-title primary-title>
                 <h3>Live stream</h3>
               </v-card-title>
@@ -73,8 +74,14 @@
               </v-card-text>
             </v-card>
           </v-col>
+          <v-col cols="5">
+            <asking-question-box></asking-question-box>
+          </v-col>
         </v-row>
       </v-container>
+    </div>
+    <div v-if="endofstream">
+      <end-of-stream></end-of-stream>
     </div>
   </div>
 </template>
@@ -85,24 +92,33 @@ import { saveAs } from "file-saver";
 import * as ics from "ics";
 import { getIdFromURL } from "vue-youtube-embed";
 import { db } from "../main";
+import navbar from "./NavBar.vue";
+
+import AskingQuestionBox from "./streampage/QuestionAsking";
+import EndOfStream from "../components/EndOfStream.vue";
 
 export default {
   name: "Home",
 
   components: {
     FlipCountdown,
+    AskingQuestionBox,
+    navbar,
+    EndOfStream,
   },
 
   data: () => ({
     //
     loading: false,
     showStream: true,
+    endofstream: false,
     youtubeURL: "",
     youtubeURLobject: "",
     youtubeID: "",
 
     windowWidth: window.innerWidth,
     showStreamobject: null,
+    endOfStreamobject: null,
     document: document,
   }),
 
@@ -153,12 +169,18 @@ export default {
       this.savedURL = this.youtubeURL == this.youtubeURLobject[".value"];
     },
     showStreamobject: function(val) {
-      this.showStream = val[".value"];
+      // this.showStream = val[".value"];
+      this.showStream = true || val;
+    },
+    endOfStreamobject: function(val) {
+      this.endofstream = val[".value"];
+      // this.endofstream = true || val;
     },
   },
 
   computed: {
     youtubeWidth() {
+      // console.log(this.$refs.$el.offsetWidth);
       return document.getElementById("youtubecard")
         ? document.getElementById("youtubecard").offsetWidth - 50
         : 300;
@@ -173,6 +195,7 @@ export default {
   firebase: {
     youtubeURLobject: db.ref("youtubeurl"),
     showStreamobject: db.ref("showstream"),
+    endOfStreamobject: db.ref("streamended"),
   },
 };
 </script>

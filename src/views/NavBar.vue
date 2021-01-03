@@ -2,7 +2,18 @@
   <v-app-bar color="deep-blue" dark app>
     <!-- <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon> -->
 
-    <v-toolbar-title>Kaj Munk Livestreams</v-toolbar-title>
+    <v-btn
+      @click="$emit('menu-button-press')"
+      v-if="$route.name == 'Chat Main'"
+      icon
+      color="primary"
+    >
+      <v-icon>menu</v-icon>
+    </v-btn>
+
+    <v-toolbar-title @click="$router.push('/')"
+      >Kaj Munk Livestreams</v-toolbar-title
+    >
 
     <v-spacer></v-spacer>
 

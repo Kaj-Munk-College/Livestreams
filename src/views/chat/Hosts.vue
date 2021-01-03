@@ -1,7 +1,21 @@
-<template><div>De host komt hier</div> </template>
+<template>
+  <div>
+    <navbar />
+    <presentator-view class="ma-3"></presentator-view>
+  </div>
+</template>
 
 <script>
-export default {};
+import navbar from "../NavBar.vue";
+import PresentatorView from "../../components/PresenterView.vue";
+export default {
+  name: "hosts-view",
+
+  components: {
+    PresentatorView,
+    navbar,
+  },
+};
 </script>
 
 <style></style>
