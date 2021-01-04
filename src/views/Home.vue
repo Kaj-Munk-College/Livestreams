@@ -6,9 +6,9 @@
           <v-col>
             <h1 class="text-center">Coming soon</h1>
             <h3 class="text-center">Live Informatie Avond</h3>
-            <h4 class="text-center">6 Januari 19:30</h4>
+            <h4 class="text-center">6 Januari 19:15</h4>
             <br />
-            <flip-countdown deadline="2021-01-13 19:30:00"></flip-countdown>
+            <flip-countdown deadline="2021-01-6 19:15:00"></flip-countdown>
             <br />
             <span class="fill-width" style="width: 100%">
               <v-btn
