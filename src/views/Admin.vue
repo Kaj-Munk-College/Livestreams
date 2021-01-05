@@ -1,150 +1,110 @@
 <template>
   <div>
-    <v-navigation-drawer v-model="drawer" absolute>
-      <v-list nav dense>
-        <v-list-item-group
-          v-model="group"
-          active-class="deep-purple--text text--accent-4"
-        >
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon>mdi-home</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Home</v-list-item-title>
-          </v-list-item>
+    <navbar></navbar>
 
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon>mdi-account</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Account</v-list-item-title>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-    </v-navigation-drawer>
-    <v-app-bar color="deep-blue" dark>
-      <!-- <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon> -->
-
-      <v-toolbar-title>Kleinkunstlive Admin Panel</v-toolbar-title>
-
-      <v-spacer></v-spacer>
-
-      <div class="text-center">
-        <v-menu>
-          <template v-slot:activator="{ on: menu }">
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on: tooltip }">
-                <v-btn v-on="{ ...tooltip, ...menu }" icon
-                  ><v-icon large>settings</v-icon></v-btn
-                >
-              </template>
-              <span>Settings</span>
-            </v-tooltip>
-          </template>
-          <v-list>
-            <v-list-item @click="darkMode = !darkMode">
-              <v-list-item-icon
-                ><v-icon v-if="darkMode">check_box</v-icon
-                ><v-icon v-else
-                  >check_box_outline_blank</v-icon
-                ></v-list-item-icon
-              >
-              <v-list-item-content>
-                <v-list-item-title>Dark mode</v-list-item-title>
-              </v-list-item-content>
-              <v-list-item-icon
-                ><v-icon>brightness_medium</v-icon></v-list-item-icon
-              >
-            </v-list-item>
-            <v-list-item class="noUnderline">
-              <router-link v-if="$store.state.user" to="login"
-                ><v-list-item-content>
-                  <v-list-item-title>Ingelogd als</v-list-item-title>
-                  <v-list-item-subtitle>{{
-                    $store.state.user.email
-                  }}</v-list-item-subtitle>
-                </v-list-item-content></router-link
-              >
-
-              <router-link v-else to="login"
-                ><v-list-item-content>
-                  <v-list-item-title>Je bent niet ingelogd</v-list-item-title>
-                  <v-list-item-subtitle
-                    >klik hier om in te loggen</v-list-item-subtitle
-                  >
-                </v-list-item-content></router-link
-              >
-              <v-list-item-icon><v-icon>settings</v-icon> </v-list-item-icon>
-            </v-list-item>
-          </v-list>
-        </v-menu>
-      </div>
-    </v-app-bar>
+    <div v-if="!isAdmin">
+      <not-as-admin-message></not-as-admin-message>
+    </div>
 
     <v-container fluid>
       <v-row dense>
-        <v-col cols="auto" xs="12" sm="12" md="6">
-          <v-card>
-            <v-card-title>
-              Youtube URL
-            </v-card-title>
-            <v-card-subtitle>Change the URL of the livestream</v-card-subtitle>
-            <v-card-text>
-              <v-text-field
-                name="Youtube URL"
-                label="Youtube URL"
-                id="yturl"
-                v-model="youtubeURL"
-                :rules="[rules.required, rules.url]"
-                dense
-              ></v-text-field>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <span v-if="!savedURL" style="color: red"
-                >Je hebt nog niet opgeslagen.
-              </span>
-              <v-spacer></v-spacer>
-              <v-btn @click="saveYoutubeURL" color="success">Save</v-btn>
-            </v-card-actions>
-          </v-card>
+        <v-col cols="6">
+          <v-row>
+            <v-col>
+              <v-card>
+                <v-card-title>
+                  Youtube URL
+                </v-card-title>
+                <v-card-subtitle
+                  >Change the URL of the livestream</v-card-subtitle
+                >
+                <v-card-text>
+                  <v-text-field
+                    name="Youtube URL"
+                    label="Youtube URL"
+                    id="yturl"
+                    v-model="youtubeURL"
+                    :rules="[rules.required, rules.url]"
+                    dense
+                  ></v-text-field>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <span v-if="!savedURL" style="color: red"
+                    >Je hebt nog niet opgeslagen.
+                  </span>
+                  <v-spacer></v-spacer>
+                  <v-btn @click="saveYoutubeURL" color="success">Save</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col>
+              <v-card>
+                <v-card-title primary-title>
+                  Show Stream
+                </v-card-title>
+                <v-card-subtitle>
+                  Show the livestream instead of the countdown (True = show)
+                </v-card-subtitle>
+                <v-card-text>
+                  <v-switch
+                    inset
+                    label="Show Stream"
+                    v-model="showStream"
+                  ></v-switch>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <span v-if="!savedShow" style="color: red"
+                    >Je hebt nog niet opgeslagen.
+                  </span>
+                  <v-spacer></v-spacer>
+                  <v-btn @click="saveShowStream" color="success">Save</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-col>
+            <v-col>
+              <v-card>
+                <v-card-title primary-title>
+                  Show Eindscherm
+                </v-card-title>
+                <v-card-subtitle>
+                  Laat het eindscherm met FAQ zien (True = show)
+                </v-card-subtitle>
+                <v-card-text>
+                  <v-switch inset label="Show End" v-model="showEnd"></v-switch>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <span v-if="!savedEnd" style="color: red"
+                    >Je hebt nog niet opgeslagen.
+                  </span>
+                  <v-spacer></v-spacer>
+                  <v-btn @click="saveShowEnd" color="success">Save</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-col>
+          </v-row>
         </v-col>
-        <v-col cols="auto" xs="12" sm="12" md="6">
+        <v-col cols="6">
           <v-card>
             <v-card-title primary-title>
               Livestream Preview
             </v-card-title>
             <v-card-text>
-              <youtube
-                style="max-width: 1000px"
-                :video-id="youtubeID"
-              ></youtube>
+              <div :style="styles.widthLimitter">
+                <div :style="styles.renderingAreaProvider">
+                  <iframe
+                    :src="`https://www.youtube.com/embed/${this.youtubeID}`"
+                    :style="styles.iframe"
+                    frameborder="0"
+                    allowfullscreen="true"
+                  ></iframe>
+                </div>
+              </div>
             </v-card-text>
-          </v-card>
-        </v-col>
-        <v-col cols="auto" xs="12" sm="6" md="3">
-          <v-card>
-            <v-card-title primary-title>
-              Show Stream
-            </v-card-title>
-            <v-card-subtitle>
-              Show the livestream instead of the countdown (True = show)
-            </v-card-subtitle>
-            <v-card-text>
-              <v-switch
-                inset
-                label="Show Stream"
-                v-model="showStream"
-              ></v-switch>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <span v-if="!savedShow" style="color: red"
-                >Je hebt nog niet opgeslagen.
-              </span>
-              <v-spacer></v-spacer>
-              <v-btn @click="saveShowStream" color="success">Save</v-btn>
-            </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
@@ -153,15 +113,20 @@
 </template>
 
 <script>
-import Cookies from "js-cookie";
 import { db } from "../main";
 import { getIdFromURL } from "vue-youtube-embed";
+import navbar from "./NavBar.vue";
+import NotAsAdminMessage from "../components/NotAsAdminMessage.vue";
 
 export default {
+  components: {
+    navbar,
+    NotAsAdminMessage,
+  },
+
   data: () => ({
     drawer: false,
     group: null,
-    darkMode: false,
     youtubeURL: "",
     youtubeURLobject: "",
     youtubeID: "",
@@ -171,12 +136,45 @@ export default {
     showStreamobject: null,
     savedShow: true,
 
+    showEnd: false,
+    showEndobject: null,
+    savedEnd: true,
+
     rules: {
       required: (value) => !!value || "Required.",
       url: (value) => {
         //eslint-disable-next-line no-useless-escape
         const pattern = /(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/;
         return pattern.test(value) || "Invalid URL";
+      },
+    },
+
+    styles: {
+      widthLimitter: {
+        maxWidth: "1000px",
+      },
+      renderingAreaProvider: {
+        background: "#f0f0f0",
+        height: 0,
+        margin: "1rem 0",
+        /*
+         * - '56.25%' indicates the aspect rasio (9/16 = 56.25%).
+         * - note that percentage inside 'padding-(top|bottom)' is calculated based on
+         *   its current width. this is a specification of 'calc' used inside
+         *   the 'padding-(top|bottom)' property.
+         *
+         * see: https://nathan.gs/2018/01/07/responsive-slideshare-iframe/
+         */
+        paddingBottom: "calc(56.25%)",
+        position: "relative",
+        width: "100%",
+      },
+      iframe: {
+        height: "100%",
+        left: 0,
+        position: "absolute",
+        top: 0,
+        width: "100%",
       },
     },
   }),
@@ -197,13 +195,14 @@ export default {
       db.ref("showstream").set(this.showStream);
       this.savedShow = true;
     },
+
+    saveShowEnd: function() {
+      db.ref("streamended").set(this.showEnd);
+      this.savedEnd = true;
+    },
   },
 
   watch: {
-    darkMode: function(val) {
-      this.$vuetify.theme.dark = val;
-      Cookies.set("darkMode", this.darkMode);
-    },
     youtubeURLobject: function(val) {
       console.log(val);
       this.youtubeURL = this.youtubeURLobject[".value"];
@@ -218,18 +217,28 @@ export default {
     showStream: function() {
       this.savedShow = this.showStream == this.showStreamobject[".value"];
     },
+    showEndobject: function(val) {
+      this.showEnd = val[".value"];
+    },
+    showEnd: function() {
+      this.savedEnd = this.showEnd == this.showEndobject[".value"];
+    },
   },
 
-  mounted() {
-    this.darkMode =
-      Cookies.get("darkMode") != undefined
-        ? Cookies.get("darkMode")
-        : (this.darkMode = false);
+  computed: {
+    isAdmin() {
+      // console.log(this.$store.state.user.email);
+      return (
+        this.$store.state.user != null &&
+        this.$store.state.user.email === "av@kajmunk.nl"
+      );
+    },
   },
 
   firebase: {
     youtubeURLobject: db.ref("youtubeurl"),
     showStreamobject: db.ref("showstream"),
+    showEndobject: db.ref("streamended"),
   },
 };
 </script>

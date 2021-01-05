@@ -31,6 +31,35 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Login.vue"),
   },
+  {
+    path: "/backstage",
+    name: "Backstage Hub",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/BackstageHub.vue"),
+  },
+  {
+    path: "/chat",
+    name: "Chat Main",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ "../views/chat/FirstResponder.vue"
+      ),
+  },
+  {
+    path: "/chat/host",
+    name: "Chat Host",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/chat/Hosts.vue"),
+  },
 ];
 
 const router = new VueRouter({

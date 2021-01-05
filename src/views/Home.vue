@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div v-if="!showStream">
+    <navbar></navbar>
+    <div v-if="!showStream && !endofstream">
       <v-container fill-height fluid fill-width>
         <v-row align="center" justify="center">
           <v-col>
@@ -26,26 +27,50 @@
                 Voeg toe aan calender
               </v-btn>
             </span>
+            <br />
+            <br />
+            <br />
+            <br /><br />
+            <p class="text-center">
+              Zometeen is er de mogelijkheid om vragen te stellen tijdens de
+              livestream. <br />
+              Hiervoor is het handig om alvast in te loggen.
+            </p>
+            <v-btn
+              style="
+                  margin: auto !important;
+                  text-align: center;
+                  display: flex;
+                "
+              class="ma-2"
+              color="success"
+              @click="$router.push('/login')"
+              >Klik hier om in te loggen</v-btn
+            >
           </v-col>
         </v-row>
       </v-container>
     </div>
-    <div v-if="showStream">
-      <v-container>
+    <div v-if="showStream && !endofstream">
+      <v-container fill-width>
         <v-row>
-          <v-col>
-            <v-card id="youtubecard">
+          <v-col cols="7">
+            <v-card id="youtubecard" ref="streamcard">
               <v-card-title primary-title>
                 <h3>Live stream</h3>
               </v-card-title>
               <v-card-text ref="youtubecard">
                 <v-spacer></v-spacer>
-                <youtube
-                  :player-width="youtubeWidth"
-                  :player-height="youtubeHeight"
-                  :video-id="youtubeID"
-                  class="videoplayer"
-                ></youtube>
+                <div :style="styles.widthLimitter">
+                  <div :style="styles.renderingAreaProvider">
+                    <iframe
+                      :src="`https://www.youtube.com/embed/${this.youtubeID}`"
+                      :style="styles.iframe"
+                      frameborder="0"
+                      allowfullscreen="true"
+                    ></iframe>
+                  </div>
+                </div>
                 <a :href="youtubeURL"
                   ><h4>Werkt de bovenstaande video niet? Klik dan hier</h4></a
                 >
@@ -53,16 +78,15 @@
               </v-card-text>
             </v-card>
           </v-col>
+          <v-col cols="5">
+            <asking-question-box></asking-question-box>
+          </v-col>
         </v-row>
       </v-container>
     </div>
-
-    <v-footer absolute class="font-weight-medium">
-      <v-col class="text-center" cols="12">
-        {{ new Date().getFullYear() }} — <strong>Kaj Munk College</strong> —
-        <i>Versie: 1.1.2</i>
-      </v-col>
-    </v-footer>
+    <div v-if="endofstream">
+      <end-of-stream></end-of-stream>
+    </div>
   </div>
 </template>
 
@@ -72,25 +96,63 @@ import { saveAs } from "file-saver";
 import * as ics from "ics";
 import { getIdFromURL } from "vue-youtube-embed";
 import { db } from "../main";
+import navbar from "./NavBar.vue";
+
+import AskingQuestionBox from "./streampage/QuestionAsking";
+import EndOfStream from "../components/EndOfStream.vue";
 
 export default {
   name: "Home",
 
   components: {
     FlipCountdown,
+    AskingQuestionBox,
+    navbar,
+    EndOfStream,
   },
 
   data: () => ({
     //
     loading: false,
     showStream: true,
+    endofstream: false,
     youtubeURL: "",
     youtubeURLobject: "",
     youtubeID: "",
 
     windowWidth: window.innerWidth,
     showStreamobject: null,
+    endOfStreamobject: null,
     document: document,
+
+    styles: {
+      widthLimitter: {
+        maxWidth: "1000px",
+      },
+      renderingAreaProvider: {
+        background: "#f0f0f0",
+        height: 0,
+        margin: "1rem 0",
+        /*
+         * - '56.25%' indicates the aspect rasio (9/16 = 56.25%).
+         * - note that percentage inside 'padding-(top|bottom)' is calculated based on
+         *   its current width. this is a specification of 'calc' used inside
+         *   the 'padding-(top|bottom)' property.
+         *
+         * see: https://nathan.gs/2018/01/07/responsive-slideshare-iframe/
+         */
+        paddingBottom: "calc(56.25%)",
+        position: "relative",
+        width: "100%",
+      },
+      iframe: {
+        height: "100%",
+        left: 0,
+        position: "absolute",
+        top: 0,
+        width: "100%",
+      },
+    },
   }),
 
   mounted() {
@@ -105,8 +167,8 @@ export default {
     addToCalendar: function() {
       this.loading = true;
       const event = {
-        start: [2021, 11, 13, 19, 30],
-        duration: { hours: 1, minutes: 0 },
+        start: [2021, 1, 6, 19, 15],
+        duration: { hours: 1, minutes: 15 },
         title: "Livestream",
         description: "Bekijk de livestream",
         location: "Livestream",
@@ -140,12 +202,18 @@ export default {
       this.savedURL = this.youtubeURL == this.youtubeURLobject[".value"];
     },
     showStreamobject: function(val) {
-      this.showStream = val[".value"];
+      this.showStream = val[".value"] || this.$route.hash == "#showstream";
+      // this.showStream = true || val;
+    },
+    endOfStreamobject: function(val) {
+      this.endofstream = val[".value"] || this.$route.hash == "#showend";
+      // this.endofstream = false || val;
     },
   },
 
   computed: {
     youtubeWidth() {
+      // console.log(this.$refs.$el.offsetWidth);
       return document.getElementById("youtubecard")
         ? document.getElementById("youtubecard").offsetWidth - 50
         : 300;
@@ -160,6 +228,7 @@ export default {
   firebase: {
     youtubeURLobject: db.ref("youtubeurl"),
     showStreamobject: db.ref("showstream"),
+    endOfStreamobject: db.ref("streamended"),
   },
 };
 </script>

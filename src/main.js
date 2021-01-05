@@ -15,6 +15,11 @@ Vue.use(rtdbPlugin);
 import VueYouTubeEmbed from "vue-youtube-embed";
 Vue.use(VueYouTubeEmbed);
 
+import VueSocial from "@growthbunker/vuesocial";
+Vue.use(VueSocial, {
+  iconPath: "/img/networks/",
+});
+
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 var firebaseConfig = {
@@ -32,6 +37,15 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
 export const db = firebase.database();
+
+firebase.auth().onAuthStateChanged((user) => {
+  console.log(user);
+  if (user != null) {
+    store.commit("setUser", user);
+  } else {
+    store.commit("setUser", null);
+  }
+});
 
 Vue.config.productionTip = false;
 
