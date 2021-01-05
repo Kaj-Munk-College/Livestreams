@@ -32,6 +32,21 @@
                 >
               </v-col>
             </v-row>
+            <v-divider></v-divider>
+            <v-row>
+              <v-col>
+                <v-text-field
+                  name="username"
+                  label="Naam"
+                  id="usernameEnterBox"
+                  solo
+                  hide-details="auto"
+                  class="mb-3"
+                  v-model="usernameEnterBox"
+                ></v-text-field>
+                <v-btn @click="loginAnonymous">Anoniem Inloggen</v-btn>
+              </v-col>
+            </v-row>
             <v-row>
               <v-col>
                 <gb-social-button network="rss" @click="dialog = !dialog"
@@ -112,7 +127,10 @@
           >
           <v-card-subtitle
             >U bent momenteel ingelogd met: <br />
-            <i>{{ $store.state.user.email }}</i>
+            <i
+              >{{ $store.state.user.email != null ? $store.state.user.email :
+              `Anoniem account` }}</i
+            >
           </v-card-subtitle>
 
           <v-card-text class="text-center justify-center">
@@ -167,6 +185,7 @@ export default {
       wrongPassword: false,
       dialog: false,
       changeUsername: "",
+      usernameEnterBox: "",
     };
   },
   methods: {
@@ -233,6 +252,17 @@ export default {
 
       console.log(firebase.auth().currentUser);
       this.$store.commit("setUser", firebase.auth().currentUser);
+    },
+
+    loginAnonymous() {
+      firebase.auth().signInAnonymously();
+
+      this.username = this.usernameEnterBox;
+      this.usernameEnterBox = "";
+
+      firebase.auth().currentUser.updateProfile({
+        displayName: this.username,
+      });
     },
   },
 };

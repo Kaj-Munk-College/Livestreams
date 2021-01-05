@@ -9,6 +9,11 @@
             <h4 class="text-center">We zien u graag de volgende keer terug</h4>
 
             <br />
+            <h4 class="text-center">Al overtuigd?</h4>
+            <p class="text-center">
+              klik <a href="https://www.kajmunk.nl/inschrijven/">hier</a> om in
+              je in te scrhijven.
+            </p>
             <br />
             <br />
 

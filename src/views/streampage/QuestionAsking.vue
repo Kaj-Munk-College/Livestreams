@@ -27,10 +27,10 @@
               Om vragen te kunnen beantwoorden willen wij graag een naam weten
               om u te kunnen addreseren.
             </p>
-            <v-btn class="mb-9" color="success" to="/login">Inloggen</v-btn>
+            <v-btn to="/login">Inloggen</v-btn>
+            <br /><br />
             <p>
-              Wilt u liever niet inloggen, maar gewoon een naam invullen? Vul
-              dan hieronder uw naam in.
+              Liever simpel en anoniem inloggen? Vul dan hieronder uw naam in.
             </p>
             <v-text-field
               name="username"
@@ -49,38 +49,40 @@
             </h4>
 
             <!-- eslint-disable-next-line vue/require-v-for-key vue/no-unused-vars -->
-            <div v-for="(msg, key, i) in questions" :key="key">
-              <template>
-                <!-- eslint-disable-next-line vue/require-v-for-key -->
-                <div :class="{ 'd-flex flex-row-reverse': !msg.byHost }">
-                  <v-menu offset-y>
-                    <template v-slot:activator="{ on }">
-                      <v-hover v-slot:default="{ hover }">
-                        <v-chip
-                          :color="!msg.byHost ? 'primary' : ''"
-                          dark
-                          style="height:auto;white-space: normal;"
-                          class="pa-4 mb-2"
-                          v-on="on"
-                        >
-                          {{ msg.text }}
-                          <sub class="ml-2" style="font-size: 0.5rem;">{{
-                            msg.created_at
-                          }}</sub>
-                          <v-icon v-if="hover" small>
-                            expand_more
-                          </v-icon>
-                        </v-chip>
-                      </v-hover>
-                    </template>
-                    <v-list>
-                      <v-list-item @click="deleteMessage(key, msg, i)">
-                        <v-list-item-title>Verwijderen</v-list-item-title>
-                      </v-list-item>
-                    </v-list>
-                  </v-menu>
-                </div>
-              </template>
+            <div class="chat-scrollbox">
+              <div v-for="(msg, key, i) in questions" :key="key">
+                <template>
+                  <!-- eslint-disable-next-line vue/require-v-for-key -->
+                  <div :class="{ 'd-flex flex-row-reverse': !msg.byHost }">
+                    <v-menu offset-y>
+                      <template v-slot:activator="{ on }">
+                        <v-hover v-slot:default="{ hover }">
+                          <v-chip
+                            :color="!msg.byHost ? 'primary' : ''"
+                            dark
+                            style="height:auto;white-space: normal;"
+                            class="pa-2 mb-2"
+                            v-on="on"
+                          >
+                            {{ msg.text }}
+                            <sub class="ml-2" style="font-size: 0.5rem;">{{
+                              msg.created_at
+                            }}</sub>
+                            <v-icon v-if="hover && !msg.byHost" small>
+                              expand_more
+                            </v-icon>
+                          </v-chip>
+                        </v-hover>
+                      </template>
+                      <v-list v-if="!msg.byHost">
+                        <v-list-item @click="deleteMessage(key, msg, i)">
+                          <v-list-item-title>Verwijderen</v-list-item-title>
+                        </v-list-item>
+                      </v-list>
+                    </v-menu>
+                  </div>
+                </template>
+              </div>
             </div>
           </div>
         </div>
@@ -97,6 +99,7 @@
           append-outer-icon="message"
           @click:append-outer="sendQuestion"
           :disabled="username == null"
+          v-on:keyup.13="sendQuestion"
         ></v-textarea>
       </v-card-text>
     </v-card>
@@ -187,14 +190,19 @@ export default {
     },
 
     loginAnonymous() {
-      firebase.auth().signInAnonymously();
+      if (this.usernameEnterBox != "")
+        firebase
+          .auth()
+          .signInAnonymously()
+          .then(() => {
+            console.log("signed in anonymously with: ", this.usernameEnterBox);
+            this.username = this.usernameEnterBox;
+            this.usernameEnterBox = "";
 
-      this.username = this.usernameEnterBox;
-      this.usernameEnterBox = "";
-
-      firebase.auth().currentUser.updateProfile({
-        displayName: this.username,
-      });
+            firebase.auth().currentUser.updateProfile({
+              displayName: this.username,
+            });
+          });
     },
 
     deleteMessage(messageKey, message) {
@@ -211,11 +219,12 @@ export default {
         `questions/asked/${firebase.auth().currentUser.uid}/displayName`
       ).set(this.username);
 
-      db.ref(`questions/asked/${firebase.auth().currentUser.uid}/uid`).set(
-        this.$store.state.user.uid
-      );
+      if (this.$store.state.user != null)
+        db.ref(`questions/asked/${firebase.auth().currentUser.uid}/uid`).set(
+          this.$store.state.user.uid
+        );
 
-      console.log("set uid to: ", this.$store.state.user.uid);
+      console.log("set up db metadata");
     },
   },
 
@@ -225,6 +234,14 @@ export default {
 
       this.setupDBMeta();
     }
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.username = user.displayName;
+
+        this.setupDBMeta();
+      }
+    });
   },
 
   watch: {
@@ -235,6 +252,19 @@ export default {
           `questions`,
           db.ref(`questions/asked/${this.$store.state.user.uid}/messages`)
         );
+      },
+    },
+
+    questions: {
+      deep: true,
+      handler() {
+        var el = document.querySelector(".chat-scrollbox");
+
+        setTimeout(() => {
+          if (el != null && el.children.length > 0) {
+            el.lastChild.scrollIntoView({ behavior: "smooth", block: "end" });
+          }
+        }, 20);
       },
     },
   },
@@ -249,11 +279,14 @@ export default {
 
 <style scoped lang="scss">
 .chat-box {
-  min-height: 400px;
-  max-height: 400px;
+  max-height: 80%;
   border-radius: 5px;
   margin-bottom: 15px;
   margin-top: 15px;
+}
+.chat-scrollbox {
   overflow-y: scroll;
+  height: 350px;
+  padding-right: 0px;
 }
 </style>

@@ -26,7 +26,7 @@
                 ><v-icon large>settings</v-icon></v-btn
               >
             </template>
-            <span>Settings</span>
+            <span>Instellingen</span>
           </v-tooltip>
         </template>
         <v-list>
@@ -47,7 +47,7 @@
               ><v-list-item-content>
                 <v-list-item-title>Ingelogd als</v-list-item-title>
                 <v-list-item-subtitle>{{
-                  $store.state.user.email
+                  $store.state.user.displayName
                 }}</v-list-item-subtitle>
               </v-list-item-content></router-link
             >

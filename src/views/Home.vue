@@ -7,9 +7,9 @@
           <v-col>
             <h1 class="text-center">Coming soon</h1>
             <h3 class="text-center">Live Informatie Avond</h3>
-            <h4 class="text-center">6 Januari 19:30</h4>
+            <h4 class="text-center">6 Januari 19:15</h4>
             <br />
-            <flip-countdown deadline="2021-01-13 19:30:00"></flip-countdown>
+            <flip-countdown deadline="2021-01-6 19:15:00"></flip-countdown>
             <br />
             <span class="fill-width" style="width: 100%">
               <v-btn
@@ -61,12 +61,16 @@
               </v-card-title>
               <v-card-text ref="youtubecard">
                 <v-spacer></v-spacer>
-                <youtube
-                  :player-width="youtubeWidth"
-                  :player-height="youtubeHeight"
-                  :video-id="youtubeID"
-                  class="videoplayer"
-                ></youtube>
+                <div :style="styles.widthLimitter">
+                  <div :style="styles.renderingAreaProvider">
+                    <iframe
+                      :src="`https://www.youtube.com/embed/${this.youtubeID}`"
+                      :style="styles.iframe"
+                      frameborder="0"
+                      allowfullscreen="true"
+                    ></iframe>
+                  </div>
+                </div>
                 <a :href="youtubeURL"
                   ><h4>Werkt de bovenstaande video niet? Klik dan hier</h4></a
                 >
@@ -120,6 +124,35 @@ export default {
     showStreamobject: null,
     endOfStreamobject: null,
     document: document,
+
+    styles: {
+      widthLimitter: {
+        maxWidth: "1000px",
+      },
+      renderingAreaProvider: {
+        background: "#f0f0f0",
+        height: 0,
+        margin: "1rem 0",
+        /*
+         * - '56.25%' indicates the aspect rasio (9/16 = 56.25%).
+         * - note that percentage inside 'padding-(top|bottom)' is calculated based on
+         *   its current width. this is a specification of 'calc' used inside
+         *   the 'padding-(top|bottom)' property.
+         *
+         * see: https://nathan.gs/2018/01/07/responsive-slideshare-iframe/
+         */
+        paddingBottom: "calc(56.25%)",
+        position: "relative",
+        width: "100%",
+      },
+      iframe: {
+        height: "100%",
+        left: 0,
+        position: "absolute",
+        top: 0,
+        width: "100%",
+      },
+    },
   }),
 
   mounted() {
@@ -134,8 +167,8 @@ export default {
     addToCalendar: function() {
       this.loading = true;
       const event = {
-        start: [2021, 11, 13, 19, 30],
-        duration: { hours: 1, minutes: 0 },
+        start: [2021, 1, 6, 19, 15],
+        duration: { hours: 1, minutes: 15 },
         title: "Livestream",
         description: "Bekijk de livestream",
         location: "Livestream",
@@ -169,12 +202,12 @@ export default {
       this.savedURL = this.youtubeURL == this.youtubeURLobject[".value"];
     },
     showStreamobject: function(val) {
-      // this.showStream = val[".value"];
-      this.showStream = true || val;
+      this.showStream = val[".value"] || this.$route.hash == "#showstream";
+      // this.showStream = true || val;
     },
     endOfStreamobject: function(val) {
-      this.endofstream = val[".value"];
-      // this.endofstream = true || val;
+      this.endofstream = val[".value"] || this.$route.hash == "#showend";
+      // this.endofstream = false || val;
     },
   },
 
