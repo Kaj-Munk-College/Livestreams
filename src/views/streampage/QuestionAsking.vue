@@ -3,6 +3,10 @@
     <v-card class="justify-center">
       <v-card-title>Chat</v-card-title>
       <v-card-text>
+        <p>
+          Vragen kunnen gesteld worden via deze chat en op whatsapp via:
+          0623315007
+        </p>
         <v-btn
           text
           color="secondary"
