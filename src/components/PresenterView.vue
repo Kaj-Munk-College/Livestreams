@@ -10,7 +10,11 @@
         <div v-if="!areThereChats()">
           Het lijkt erop dat er nog geen vragen zijn voor de presentatoren
         </div>
-        <div v-for="person in chats" :key="person.uid">
+        <div
+          v-for="person in chats"
+          :key="person.uid"
+          :style="`display: ${hasChatsToShow(person) ? 'block' : 'none'}`"
+        >
           <div v-if="hasChatsToShow(person)" class="mb-3">
             <h3>Gebruiker: {{ person.displayName }}</h3>
           </div>
