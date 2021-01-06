@@ -29,12 +29,10 @@
             </span>
             <br />
             <br />
-            <br />
             <br /><br />
             <p class="text-center">
-              Zometeen is er de mogelijkheid om vragen te stellen tijdens de
-              livestream. <br />
-              Hiervoor is het handig om alvast in te loggen.
+              Tijdens de stream kunnen er vragen gesteld worden. <br />
+              Hiervoor moet u inloggen. Dit kan voor de stream.
             </p>
             <v-btn
               style="
@@ -44,6 +42,7 @@
                 "
               class="ma-2"
               color="success"
+              text
               @click="$router.push('/login')"
               >Klik hier om in te loggen</v-btn
             >
