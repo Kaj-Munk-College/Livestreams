@@ -7,9 +7,9 @@
           <v-col>
             <h1 class="text-center">Coming soon</h1>
             <h3 class="text-center">Live Informatie Avond</h3>
-            <h4 class="text-center">6 Januari 19:15</h4>
+            <h4 class="text-center">7 Januari 19:15</h4>
             <br />
-            <flip-countdown deadline="2021-01-6 19:15:00"></flip-countdown>
+            <flip-countdown deadline="2021-01-7 19:15:00"></flip-countdown>
             <br />
             <span class="fill-width" style="width: 100%">
               <v-btn
@@ -53,7 +53,7 @@
     <div v-if="showStream && !endofstream">
       <v-container fill-width>
         <v-row>
-          <v-col cols="7">
+          <v-col cols="12" md="7">
             <v-card id="youtubecard" ref="streamcard">
               <v-card-title primary-title>
                 <h3>Live stream</h3>
@@ -77,7 +77,7 @@
               </v-card-text>
             </v-card>
           </v-col>
-          <v-col cols="5">
+          <v-col cols="12" md="5">
             <asking-question-box></asking-question-box>
           </v-col>
         </v-row>
@@ -166,8 +166,8 @@ export default {
     addToCalendar: function() {
       this.loading = true;
       const event = {
-        start: [2021, 1, 6, 19, 15],
-        duration: { hours: 1, minutes: 15 },
+        start: [2021, 1, 7, 19, 15],
+        duration: { hours: 1, minutes: 0 },
         title: "Livestream",
         description: "Bekijk de livestream",
         location: "Livestream",
@@ -207,6 +207,9 @@ export default {
     endOfStreamobject: function(val) {
       this.endofstream = val[".value"] || this.$route.hash == "#showend";
       // this.endofstream = false || val;
+      if (this.$route.hash == "#showstream") {
+        this.endofstream = false;
+      }
     },
   },
 

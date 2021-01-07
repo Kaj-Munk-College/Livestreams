@@ -62,7 +62,7 @@
 
                   <v-list nav>
                     <v-list-item
-                      v-for="(chat, key) in chats"
+                      v-for="chat in orderedChats"
                       :key="chat.uid"
                       :style="`display: ${chat.messages ? 'block' : 'none'}`"
                     >
@@ -78,19 +78,39 @@
                                   : ''
                               }`
                             "
-                            @click="
-                              selectedChat = chat;
-                              selectedUser = key;
-                            "
+                            @click="selectedChat = chat"
                           >
                             <v-list-item-title>{{
                               chat.displayName
                             }}</v-list-item-title>
-                            <v-list-item-subtitle>{{
-                              chat.messages != undefined
-                                ? getLastMessage(chat.messages).text
-                                : ""
-                            }}</v-list-item-subtitle>
+                            <v-list-item-subtitle>
+                              <v-icon
+                                :color="
+                                  chat.messages != undefined
+                                    ? getLastMessage(chat.messages).flags
+                                        .Answered
+                                      ? 'blue'
+                                      : 'grey'
+                                    : ''
+                                "
+                              >
+                                {{
+                                  chat.messages != undefined
+                                    ? getLastMessage(chat.messages).byHost
+                                      ? "reply"
+                                      : getLastMessage(chat.messages).flags
+                                          .Answeredd
+                                      ? "done_all"
+                                      : "done"
+                                    : ""
+                                }}</v-icon
+                              >
+                              {{
+                                chat.messages != undefined
+                                  ? getLastMessage(chat.messages).text
+                                  : ""
+                              }}</v-list-item-subtitle
+                            >
                             <v-list-item-subtitle>
                               {{
                                 chat.messages != undefined
@@ -185,7 +205,7 @@
 
                     <v-textarea
                       name="questionBoxInput"
-                      label="Stel een vraag"
+                      label="Beantwoord..."
                       id="questionBoxInput"
                       v-model="questionBoxInput"
                       rows="1"
@@ -251,6 +271,7 @@ import PresentatorView from "../../components/PresenterView.vue";
 import FrequentAskedQuestionsEnterBox from "../../components/FAQ/FrequentAskedQuestionEnterBox.vue";
 import FrequentAskedQuestionListAdmin from "../../components/FAQ/FrequentAskedQuestionListAdmin.vue";
 import NotAsAdminMessage from "../../components/NotAsAdminMessage.vue";
+import _ from "lodash";
 
 export default {
   components: {
@@ -320,6 +341,9 @@ export default {
           },
           created_at: new Date().toLocaleTimeString(),
         });
+        db.ref(
+          `questions/asked/${this.selectedChat.uid}/latestMessageTimestamp`
+        ).set(Date.now());
         this.questionBoxInput = "";
       }
     },
@@ -358,7 +382,7 @@ export default {
 
     selectedChat: {
       deep: true,
-      handler() {
+      handler(val) {
         var el = document.querySelector(".chat-box");
 
         setTimeout(() => {
@@ -366,6 +390,15 @@ export default {
             el.lastChild.scrollIntoView({ behavior: "smooth", block: "end" });
           }
         }, 20);
+
+        Object.values(val.messages).forEach((msg, i) => {
+          // console.log(msg, Object.keys(val.messages)[i]);
+          db.ref(
+            `questions/asked/${val.uid}/messages/${
+              Object.keys(val.messages)[i]
+            }/flags/Answered`
+          ).set(true);
+        });
       },
     },
   },
@@ -378,6 +411,10 @@ export default {
         this.$store.state.user.email === "av@kajmunk.nl"
       );
     },
+
+    orderedChats: function() {
+      return _.reverse(_.orderBy(this.chats, (o) => o.latestMessageTimestamp));
+    },
   },
 
   firebase: {
@@ -389,7 +426,8 @@ export default {
 <style scoped lang="scss">
 .chat-box {
   overflow-y: scroll;
-  height: 400px;
+  min-height: 300px;
+  max-height: 500px;
 }
 .item-content {
   position: relative;

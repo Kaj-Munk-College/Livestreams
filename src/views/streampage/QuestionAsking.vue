@@ -10,6 +10,7 @@
         <v-btn
           text
           color="secondary"
+          style="font-size: smaller;"
           @click="questionsExplainedPopUp = !questionsExplainedPopUp"
           >Hoe worden vragen beantwoord?</v-btn
         >
@@ -189,6 +190,12 @@ export default {
         },
         created_at: new Date().toLocaleTimeString(),
       });
+
+      db.ref(
+        `questions/asked/${
+          firebase.auth().currentUser.uid
+        }/latestMessageTimestamp`
+      ).set(Date.now());
 
       this.questionBoxInput = "";
     },
