@@ -29,7 +29,7 @@
                       <v-expansion-panel-header>{{
                         question.question
                       }}</v-expansion-panel-header>
-                      <v-expansion-panel-content
+                      <v-expansion-panel-content v-linkified
                         >{{ question.answer }}
                       </v-expansion-panel-content>
                     </v-expansion-panel>

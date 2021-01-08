@@ -19,6 +19,7 @@
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.11",
     "vue-grid-layout": "^2.3.11",
+    "vue-linkify": "^1.0.1",
     "vue-router": "^3.2.0",
     "vue-youtube-embed": "^2.2.2",
     "vue2-flip-countdown": "^0.11.1",

@@ -20,6 +20,9 @@ Vue.use(VueSocial, {
   iconPath: "/img/networks/",
 });
 
+import linkify from "vue-linkify";
+Vue.directive("linkified", linkify);
+
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 var firebaseConfig = {
