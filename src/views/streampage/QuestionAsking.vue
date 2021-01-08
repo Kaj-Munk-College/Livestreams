@@ -68,6 +68,7 @@
                             style="height:auto;white-space: normal;"
                             class="pa-2 mb-2"
                             v-on="on"
+                            v-linkified
                           >
                             {{ msg.text }}
                             <sub class="ml-2" style="font-size: 0.5rem;">{{

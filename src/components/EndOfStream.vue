@@ -11,10 +11,17 @@
             <br />
             <h4 class="text-center">Nog meer weten?</h4>
             <p class="text-center">
-              kijk <a href="https://www.onzeopendag.nl/kajmunk/">hier</a> op
+              Bekijk <a href="https://www.onzeopendag.nl/kajmunk/">hier</a>
               onze college tour.
             </p>
             <br />
+            <h4 class="text-center">Terugkijken</h4>
+            <p class="text-center">
+              Heeft u de livestream gemist, of wilt u hem nogmaals bekijken? Dat
+              kan! klik
+              <a href="https://youtu.be/0Sc23z_NBT8">hier</a> om de herhaling te
+              bekijken.
+            </p>
             <br />
 
             <h4 class="text-center">Veel gestelde vragen</h4>

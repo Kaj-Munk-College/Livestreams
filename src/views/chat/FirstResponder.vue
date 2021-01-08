@@ -166,6 +166,7 @@
                                     style="height:auto;white-space: normal;"
                                     class="pa-2 mb-2"
                                     v-on="on"
+                                    v-linkified
                                   >
                                     {{ msg.text }}
                                     <sub

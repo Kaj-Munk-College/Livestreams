@@ -114,7 +114,7 @@ export default {
     //
     loading: false,
     showStream: true,
-    endofstream: false,
+    endofstream: true,
     youtubeURL: "",
     youtubeURLobject: "",
     youtubeID: "",
