@@ -7,9 +7,9 @@
           <v-col>
             <h1 class="text-center">Coming soon</h1>
             <h3 class="text-center">Live Informatie Avond</h3>
-            <h4 class="text-center">7 Januari 19:15</h4>
+            <h4 class="text-center">27 Januari 14:15</h4>
             <br />
-            <flip-countdown deadline="2021-01-7 19:15:00"></flip-countdown>
+            <flip-countdown deadline="2021-01-27 14:15:00"></flip-countdown>
             <br />
             <span class="fill-width" style="width: 100%">
               <v-btn
@@ -31,6 +31,15 @@
             <br />
             <br /><br />
             <p class="text-center">
+              Je kan alvast een challange back ophalen bij ons. Kijk daarvoor
+              even op onze website
+              <a
+                href="https://www.kajmunk.nl/inschrijfformulier-challengemiddag-challengebag-ophalen/"
+                target="_blank"
+                >https://kajmunk.nl</a
+              >
+            </p>
+            <!-- <p class="text-center">
               Tijdens de stream kunnen er vragen gesteld worden. <br />
               Hiervoor moet u inloggen. Dit kan voor de stream.
             </p>
@@ -45,7 +54,7 @@
               text
               @click="$router.push('/login')"
               >Klik hier om in te loggen</v-btn
-            >
+            > -->
           </v-col>
         </v-row>
       </v-container>
@@ -113,8 +122,8 @@ export default {
   data: () => ({
     //
     loading: false,
-    showStream: true,
-    endofstream: true,
+    showStream: false,
+    endofstream: false,
     youtubeURL: "",
     youtubeURLobject: "",
     youtubeID: "",
@@ -166,7 +175,7 @@ export default {
     addToCalendar: function() {
       this.loading = true;
       const event = {
-        start: [2021, 1, 7, 19, 15],
+        start: [2021, 1, 27, 14, 15],
         duration: { hours: 1, minutes: 0 },
         title: "Livestream",
         description: "Bekijk de livestream",

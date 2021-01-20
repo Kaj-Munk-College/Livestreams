@@ -54,41 +54,62 @@
             </h4>
 
             <!-- eslint-disable-next-line vue/require-v-for-key vue/no-unused-vars -->
-            <div class="chat-scrollbox">
-              <div v-for="(msg, key, i) in questions" :key="key">
-                <template>
-                  <!-- eslint-disable-next-line vue/require-v-for-key -->
-                  <div :class="{ 'd-flex flex-row-reverse': !msg.byHost }">
-                    <v-menu offset-y>
-                      <template v-slot:activator="{ on }">
-                        <v-hover v-slot:default="{ hover }">
-                          <v-chip
-                            :color="!msg.byHost ? 'primary' : ''"
-                            dark
-                            style="height:auto;white-space: normal;"
-                            class="pa-2 mb-2"
-                            v-on="on"
-                            v-linkified
-                          >
-                            {{ msg.text }}
-                            <sub class="ml-2" style="font-size: 0.5rem;">{{
-                              msg.created_at
-                            }}</sub>
-                            <v-icon v-if="hover && !msg.byHost" small>
-                              expand_more
-                            </v-icon>
-                          </v-chip>
-                        </v-hover>
-                      </template>
-                      <v-list v-if="!msg.byHost">
-                        <v-list-item @click="deleteMessage(key, msg, i)">
-                          <v-list-item-title>Verwijderen</v-list-item-title>
-                        </v-list-item>
-                      </v-list>
-                    </v-menu>
-                  </div>
-                </template>
-              </div>
+            <div
+              class="chat-scrollbox"
+              @dragover.prevent
+              @dragleave="dragleave"
+              @dragenter="dragenter"
+              @drop="drop"
+              ref="dropzone"
+            >
+              <template>
+                <div v-for="(msg, key, i) in questions" :key="key">
+                  <template>
+                    <!-- eslint-disable-next-line vue/require-v-for-key -->
+                    <div :class="{ 'd-flex flex-row-reverse': !msg.byHost }">
+                      <v-menu offset-y>
+                        <template v-slot:activator="{ on }">
+                          <v-hover v-slot:default="{ hover }">
+                            <v-chip
+                              :color="!msg.byHost ? 'primary' : ''"
+                              dark
+                              style="height:auto;white-space: normal;"
+                              class="pa-2 mb-2"
+                              v-on="on"
+                              v-linkified
+                              :class="!msg.byHost ? 'own' : ''"
+                            >
+                              {{ msg.text }}
+                              <sub class="ml-2" style="font-size: 0.5rem;">{{
+                                msg.created_at
+                              }}</sub>
+                              <v-icon v-if="hover && !msg.byHost" small>
+                                expand_more
+                              </v-icon>
+                            </v-chip>
+                          </v-hover>
+                        </template>
+                        <v-list v-if="!msg.byHost">
+                          <v-list-item @click="deleteMessage(key, msg, i)">
+                            <v-list-item-title>Verwijderen</v-list-item-title>
+                          </v-list-item>
+                        </v-list>
+                      </v-menu>
+                    </div>
+                  </template>
+                </div>
+                <v-fade-transition>
+                  <v-overlay v-if="files.length > 0" absolute>
+                    <v-container fill-height fill-width>
+                      <v-app-bar>
+                        <v-toolbar-title>
+                          Upload
+                        </v-toolbar-title>
+                      </v-app-bar>
+                    </v-container>
+                  </v-overlay>
+                </v-fade-transition>
+              </template>
             </div>
           </div>
         </div>
@@ -106,7 +127,24 @@
           @click:append-outer="sendQuestion"
           :disabled="username == null"
           v-on:keyup.13="sendQuestion"
+          prepend-icon="cloud_upload"
+          @click:prepend="$refs.filebtn.click()"
         ></v-textarea>
+
+        <input
+          ref="filebtn"
+          class="filebtn"
+          type="file"
+          :multiple="multiple"
+          :accept="
+            validatedAccept &&
+              [
+                ...validatedAccept.extensions,
+                ...validatedAccept.mimetypes,
+              ].join(',')
+          "
+          @input="upload"
+        />
       </v-card-text>
     </v-card>
 
@@ -171,6 +209,14 @@ export default {
       username: null,
       usernameEnterBox: "",
       questions: [],
+
+      // File upload
+      hoverCounter: 0,
+      hoveringContent: null,
+      matchAnything: /.*/,
+      files: [],
+      multiple: true,
+      label: "Upload",
     };
   },
 
@@ -238,6 +284,97 @@ export default {
 
       console.log("set up db metadata");
     },
+
+    upload() {
+      const files = this.filebtn.files ?? [];
+      for (let i = 0; i < files.length; i++) {
+        if (!this.multiple) {
+          this.files.splice(0, this.files.length);
+        }
+        const shouldPush =
+          this.validTypes.extensions.reduce(
+            (prev, regex) => prev || !!files[i].name.match(regex),
+            false
+          ) ||
+          this.validTypes.mimetypes.reduce(
+            (prev, regex) => prev || !!files[i].type.match(regex),
+            false
+          );
+        if (shouldPush) {
+          this.files.push(files[i]);
+        }
+      }
+      this.filebtn.value = "";
+    },
+    dragenter(e) {
+      this.hoveringContent = e.dataTransfer.items;
+      this.hoverCounter++;
+    },
+    /** Counts leave events (fix for event rippling issues) */
+    dragleave() {
+      this.hoverCounter--;
+    },
+    /** Validates and keeps track of dropped content */
+    drop(e) {
+      e.preventDefault(); // Keep from leaving the page
+      this.hoverCounter = 0; // Content can't be dragged out, so go ahead and reset the counter
+      if (e.dataTransfer.items) {
+        const rejected = []; // Keeps track of rejected items for reporting at the end
+        for (let i = 0; i < e.dataTransfer.items.length; i++) {
+          if (e.dataTransfer.items[i].kind === "file") {
+            // Directories are not supported. Skip any that are found
+            if (e.dataTransfer.items[i].webkitGetAsEntry) {
+              const entry = e.dataTransfer.items[i].webkitGetAsEntry();
+              if (entry.isDirectory) {
+                rejected.push(entry.name);
+                continue;
+              }
+            }
+            const file = e.dataTransfer.items[i].getAsFile();
+            if (file) {
+              const shouldPush = // Check against Regex arrays from accept property
+                this.validTypes.extensions.reduce(
+                  (prev, regex) => prev || !!file.name.match(regex),
+                  false
+                ) ||
+                this.validTypes.mimetypes.reduce(
+                  (prev, regex) => prev || !!file.type.match(regex),
+                  false
+                );
+              if (shouldPush) {
+                if (this.multiple) {
+                  // Remove duplicates
+                  this.files
+                    .filter((currFile) => currFile.name === file.name)
+                    .forEach((fileToRemove) =>
+                      this.files.splice(this.files.indexOf(fileToRemove), 1)
+                    );
+                } else {
+                  // Remove all
+                  this.files.splice(0, this.files.length);
+                }
+                this.files.push(file);
+              } else {
+                rejected.push(file); // Keep track of rejected files
+                continue;
+              }
+            } else {
+              continue;
+            }
+          }
+        }
+        // Emit rejected files
+        if (rejected.length) {
+          this.$emit("rejectedFiles", rejected);
+        }
+      }
+    },
+    /** Removes attachment per user's request */
+    remove(file) {
+      const arr = this.files;
+      arr.splice(arr.indexOf(file), 1);
+      this.$emit("update", null);
+    },
   },
 
   mounted: function() {
@@ -279,6 +416,116 @@ export default {
         }, 20);
       },
     },
+
+    multiple(val) {
+      if (!val) {
+        this.files.splice(0, this.files.length - 1);
+      }
+    },
+    hoveringContent(val) {
+      // If a file is hovering
+      if (val) {
+        // If we have type checking and we're using mimetypes only
+        if (
+          this.accept &&
+          this.accept.length &&
+          this.validTypes.extensions.length === 0
+        ) {
+          let shouldDim = false;
+          // For each file hovering over the box...
+          for (let i = 0; i < val.length; i++) {
+            if (
+              // Check the type against all our mime types
+              this.validTypes.mimetypes.reduce(
+                (prev, regex) => prev || !!val[i].type.match(regex)
+              )
+            ) {
+              shouldDim = true;
+              break;
+            }
+          }
+          // If we found a match, dim the box
+          if (shouldDim) {
+            this.dropzone.style.backgroundColor = "rgba(0, 0, 0, 0.25)";
+          }
+          // If not, we can't definitively typecheck, so...
+        } else {
+          // Check that we have a file in there
+          let shouldDim = false;
+          for (let i = 0; i < val.length; i++) {
+            if (val[i].kind === "file") {
+              shouldDim = true;
+              break;
+            }
+          }
+          // ... and dim the box
+          if (shouldDim) {
+            this.dropzone.style.backgroundColor = "rgba(0, 0, 0, 0.25)";
+          }
+        }
+        // Otherwise...
+      } else {
+        // Un-dim the box
+        this.dropzone.style.backgroundColor = "";
+      }
+    },
+    hoverCounter(val) {
+      if (val === 0) {
+        this.hoveringContent = null;
+      }
+    },
+  },
+
+  computed: {
+    filebtn: {
+      cache: false,
+      get() {
+        return this.$refs.filebtn;
+      },
+    },
+    dropzone: {
+      cache: false,
+      get() {
+        return this.$refs.dropzone;
+      },
+    },
+    validTypes() {
+      if (this.validatedAccept) {
+        return {
+          extensions: this.validatedAccept.extensions
+            .map((ext) => ext.replace(/(\W)/g, "\\$1")) // Escape all potential regex tokens
+            .map((rgxstr) => new RegExp(`${rgxstr}$`, "i")), // Transform into regex to look for extension
+          mimetypes: this.validatedAccept.mimetypes
+            .map((mt) => mt.replace(/([-+/])/g, "\\$1")) // Escape special characters
+            .map((mt) => mt.replace(/\*/g, "(?:[A-Za-z0-9\\-\\+]*)*")) // Enable wildcards
+            .map((rgxstr) => new RegExp(`^${rgxstr}$`)), // Transform into regex
+        };
+      } else {
+        // If we haven't been given any filters...
+        return {
+          extensions: [this.matchAnything],
+          mimetypes: [this.matchAnything],
+        };
+      }
+    },
+    validatedAccept() {
+      if (this.accept) {
+        return {
+          extensions: this.accept
+            .split(",")
+            .filter((type) => type.match(/^\.(?!.*\/)/)), // Get only extension filters
+          mimetypes: this.accept
+            .split(",")
+            .filter((type) =>
+              type.match(
+                /^(?:(?:[A-Za-z0-9\-+]*)|\*)\/(?:(?:[A-Za-z0-9\-+.]*)|\*)$/
+              )
+            ), // Get only mimetype filters
+        };
+      } else {
+        return null;
+      }
+    },
   },
 
   // firebase: {
@@ -300,5 +547,50 @@ export default {
   overflow-y: scroll;
   height: 350px;
   padding-right: 0px;
+}
+
+.linkified {
+  color: red;
+}
+
+// Input box
+h1 {
+  font-size: 1.5em;
+  font-weight: 400;
+  font-family: Roboto, sans-serif;
+  color: hsla(0, 0%, 100%, 0.7);
+}
+p {
+  margin: 0;
+  font-size: 0.75em;
+  font-weight: 100;
+}
+.dropzone {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border: 2px dashed hsla(0, 0%, 100%, 0.7);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: background-color 0.2s;
+}
+div.input-container {
+  min-width: 50%;
+}
+.v-input {
+  ::v-deep div.v-input__control {
+    div.v-input__slot {
+      margin-top: 4px;
+      margin-bottom: 0 !important;
+    }
+    div.v-messages {
+      display: none;
+    }
+  }
+}
+input.filebtn {
+  display: none;
 }
 </style>

@@ -94,3 +94,9 @@ export default {
   methods: {},
 };
 </script>
+
+<style lang="scss">
+.v-overlay__content {
+
+}
+</style>
