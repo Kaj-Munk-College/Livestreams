@@ -61,7 +61,7 @@
             >Kaj Munk College</a
           >
           —
-          <i @click="$router.push('/backstage')">Versie: 1.2.3</i>
+          <i @click="$router.push('/backstage')">Versie: 1.2.5</i>
         </span>
 
         <br />
@@ -97,6 +97,9 @@ export default {
 
 <style lang="scss">
 .v-overlay__content {
+}
 
+.linkified {
+  color: rgb(0, 162, 255) !important;
 }
 </style>

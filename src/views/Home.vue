@@ -6,7 +6,7 @@
         <v-row align="center" justify="center">
           <v-col>
             <h1 class="text-center">Coming soon</h1>
-            <h3 class="text-center">Live Informatie Avond</h3>
+            <h3 class="text-center">Live Challengemiddag</h3>
             <h4 class="text-center">27 Januari 14:15</h4>
             <br />
             <flip-countdown deadline="2021-01-27 14:15:00"></flip-countdown>
@@ -60,9 +60,18 @@
       </v-container>
     </div>
     <div v-if="showStream && !endofstream">
+      <h1 class="text-center">Live Uitzending</h1>
+      <h5 class="text-center">
+        Challenge voltooid of toch nog vragen? Stuur dan een whatsapp:
+      </h5>
+      <h4 class="text-center">+31 6 23315007</h4>
+      <h5 class="text-center">
+        Na de livestream komt er de mogelijk om via deze website live vragen te
+        stellen.
+      </h5>
       <v-container fill-width>
         <v-row>
-          <v-col cols="12" md="7">
+          <v-col cols="12">
             <v-card id="youtubecard" ref="streamcard">
               <v-card-title primary-title>
                 <h3>Live stream</h3>
@@ -86,9 +95,9 @@
               </v-card-text>
             </v-card>
           </v-col>
-          <v-col cols="12" md="5">
-            <asking-question-box></asking-question-box>
-          </v-col>
+          <!-- <v-col cols="12" md="5">
+            
+          </v-col> -->
         </v-row>
       </v-container>
     </div>
@@ -106,7 +115,6 @@ import { getIdFromURL } from "vue-youtube-embed";
 import { db } from "../main";
 import navbar from "./NavBar.vue";
 
-import AskingQuestionBox from "./streampage/QuestionAsking";
 import EndOfStream from "../components/EndOfStream.vue";
 
 export default {
@@ -114,7 +122,6 @@ export default {
 
   components: {
     FlipCountdown,
-    AskingQuestionBox,
     navbar,
     EndOfStream,
   },

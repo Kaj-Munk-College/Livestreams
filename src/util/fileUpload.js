@@ -6,13 +6,19 @@ import "firebase/storage";
  * @param {File} image
  * @returns Promise
  */
-export function uploadImage(userId, image) {
+export async function uploadImage(userId, image) {
+  console.log("Uploading image for ", userId, " With file: ", image);
   var storage = firebase.storage();
 
   var storageRef = storage.ref("uploads/" + userId);
   var imageRef = storageRef.child(makeid + image.type);
 
-  return ref.put(image);
+  imageRef
+    .put(image)
+    .then((snapshot) => {
+      return snapshot;
+    })
+    .catch((e) => console.error(e));
 }
 
 function makeid(length) {

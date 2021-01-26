@@ -127,7 +127,6 @@
           @click:append-outer="sendQuestion"
           :disabled="username == null"
           v-on:keyup.13="sendQuestion"
-          prepend-icon="cloud_upload"
           @click:prepend="$refs.filebtn.click()"
         ></v-textarea>
 
@@ -186,7 +185,8 @@
 <script>
 import firebase from "firebase/app";
 import "firebase/auth";
-import { db } from "../../main";
+import { db } from "../main";
+import { uploadImage } from "../util/fileUpload";
 
 // For the time now
 Date.prototype.timeNow = function() {
@@ -253,8 +253,14 @@ export default {
           .auth()
           .signInAnonymously()
           .then(() => {
-            console.log("signed in anonymously with: ", this.usernameEnterBox);
             this.username = this.usernameEnterBox;
+            console.log(
+              "signed in anonymously with: ",
+              this.usernameEnterBox,
+              this.username
+            );
+
+            this.$store.commit("setUser", this.usernameEnterBox);
             this.usernameEnterBox = "";
 
             firebase.auth().currentUser.updateProfile({
@@ -285,7 +291,7 @@ export default {
       console.log("set up db metadata");
     },
 
-    upload() {
+    async upload() {
       const files = this.filebtn.files ?? [];
       for (let i = 0; i < files.length; i++) {
         if (!this.multiple) {
@@ -302,6 +308,9 @@ export default {
           );
         if (shouldPush) {
           this.files.push(files[i]);
+
+          // Upload the file to firebase storage
+          await uploadImage(firebase.auth().currentUser.uid, files[i]);
         }
       }
       this.filebtn.value = "";
@@ -386,7 +395,9 @@ export default {
 
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.username = user.displayName;
+        if(user.displayName != null && user.displayName != ""){
+          this.username = user.displayName;
+        }
 
         this.setupDBMeta();
       }
