@@ -1,7 +1,12 @@
 {
-  "name": "kka",
-  "version": "0.1.0",
+  "name": "kajmunk-livestreams",
+  "version": "1.2.5",
   "private": true,
+  "author": {
+    "email": "bramkoene@gmail.com",
+    "name": "minestarnl",
+    "url": "https://github.com/minestarnl"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
