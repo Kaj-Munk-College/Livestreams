@@ -108,6 +108,42 @@
           </v-card>
         </v-col>
       </v-row>
+      <v-row>
+        <v-col>
+          <v-card>
+            <v-card-title>
+              Countdown
+            </v-card-title>
+            <v-card-subtitle>Selecteer de afteltijd</v-card-subtitle>
+            <v-card-text>
+              <v-row>
+                <v-col>
+                  <v-time-picker
+                    v-model="nextEventTime.time"
+                    format="24hr"
+                  ></v-time-picker>
+                </v-col>
+                <v-col>
+                  <v-date-picker
+                    v-model="nextEventTime.date"
+                    :landscape="true"
+                    :reactive="true"
+                    show-adjacent-months
+                  ></v-date-picker>
+                </v-col>
+              </v-row>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <span v-if="!savedURL" style="color: red"
+                >Je hebt nog niet opgeslagen.
+              </span>
+              <v-spacer></v-spacer>
+              <v-btn @click="saveYoutubeURL" color="success">Save</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
     </v-container>
   </div>
 </template>
@@ -139,6 +175,13 @@ export default {
     showEnd: false,
     showEndobject: null,
     savedEnd: true,
+
+    nextEventTime: {
+      date: "",
+      time: "",
+    },
+    nextEventTimeObject: null,
+    savedNextEventTime: false,
 
     rules: {
       required: (value) => !!value || "Required.",
@@ -200,6 +243,11 @@ export default {
       db.ref("streamended").set(this.showEnd);
       this.savedEnd = true;
     },
+
+    saveNextEventTime: function() {
+      db.ref("nextEventTime").set(this.nextEventTime);
+      this.savedNextEventTime = true;
+    },
   },
 
   watch: {
@@ -223,6 +271,13 @@ export default {
     showEnd: function() {
       this.savedEnd = this.showEnd == this.showEndobject[".value"];
     },
+    nextEventTimeObject: function(val) {
+      this.nextEventTime = val[".value"];
+    },
+    nextEventTime: function() {
+      this.savedNextEventTime =
+        this.nextEventTime == this.nextEventTimeObject[".value"];
+    },
   },
 
   computed: {
@@ -239,6 +294,7 @@ export default {
     youtubeURLobject: db.ref("youtubeurl"),
     showStreamobject: db.ref("showstream"),
     showEndobject: db.ref("streamended"),
+    nextEventTimeObject: db.ref("nextEventTime"),
   },
 };
 </script>

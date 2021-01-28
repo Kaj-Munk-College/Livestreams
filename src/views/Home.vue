@@ -7,9 +7,9 @@
           <v-col>
             <h1 class="text-center">Coming soon</h1>
             <h3 class="text-center">Live Challengemiddag</h3>
-            <h4 class="text-center">27 Januari 14:15</h4>
+            <h4 class="text-center">5 Februari 14:45</h4>
             <br />
-            <flip-countdown deadline="2021-01-27 14:15:00"></flip-countdown>
+            <flip-countdown deadline="2021-02-05 14:45"></flip-countdown>
             <br />
             <span class="fill-width" style="width: 100%">
               <v-btn
@@ -30,13 +30,19 @@
             <br />
             <br />
             <br /><br />
-            <p class="text-center">
-              Je kan alvast een challange back ophalen bij ons. Kijk daarvoor
-              even op onze website
-              <a
-                href="https://www.kajmunk.nl/inschrijfformulier-challengemiddag-challengebag-ophalen/"
-                target="_blank"
-                >https://kajmunk.nl</a
+            <p class="mx-10">
+              Beste groep-8 leerlingen,<br /><br />
+              Wat een pech, zit je helemaal klaar met je challengebag voor je
+              neus om te starten met de challengemiddag op woensdag 27 januari,
+              valt opeens tijdens de live-uitzending het geluid weg. Onze
+              technici hebben met man en macht geprobeerd het op te lossen, maar
+              dat betekende dat we pas om 16.30 uur gestart zijn. We vinden dat
+              heel jammer en snappen dat een aantal van jullie nu niet mee heeft
+              kunnen doen. Daarom organiseren we de challengemiddag nog een keer
+              op vrijdag 5 februari van 15.00 – 16.00 uur. Mocht je nog geen Kaj
+              Munk challengebag hebben opgehaald, neem dan even contact op met
+              <a href="mailto:j.vanderweijden@kajmunk.nl" target="_blank"
+                >j.vanderweijden@kajmunk.nl</a
               >
             </p>
             <!-- <p class="text-center">

@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user: null,
+    packageVersion: process.env.PACKAGE_VERSION || "0",
   },
   mutations: {
     setUser(state, data) {
@@ -14,4 +15,9 @@ export default new Vuex.Store({
   },
   actions: {},
   modules: {},
+  getters: {
+    appVersion: (state) => {
+      return state.packageVersion;
+    },
+  },
 });
