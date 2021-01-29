@@ -117,29 +117,53 @@
             <v-card-subtitle>Selecteer de afteltijd</v-card-subtitle>
             <v-card-text>
               <v-row>
-                <v-col>
+                <v-col cols="12" md="6" lg="4">
                   <v-time-picker
                     v-model="nextEventTime.time"
                     format="24hr"
+                    full-width
+                    landscape
                   ></v-time-picker>
                 </v-col>
-                <v-col>
+                <v-col cols="12" md="6" lg="4">
                   <v-date-picker
                     v-model="nextEventTime.date"
                     :landscape="true"
                     :reactive="true"
                     show-adjacent-months
+                    full-width
                   ></v-date-picker>
+                </v-col>
+                <v-col cols="12" md="12" lg="4">
+                  <v-row>
+                    <v-col>
+                      <v-text-field
+                        name="eventname"
+                        label="Evenement naam"
+                        id="id"
+                        v-model="nextEventTime.title"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col>
+                      <v-textarea
+                        v-model="nextEventTime.announcement"
+                        label="Melding"
+                      >
+                      </v-textarea>
+                    </v-col>
+                  </v-row>
                 </v-col>
               </v-row>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <span v-if="!savedURL" style="color: red"
+              <span v-if="!savedNextEventTime" style="color: red"
                 >Je hebt nog niet opgeslagen.
               </span>
               <v-spacer></v-spacer>
-              <v-btn @click="saveYoutubeURL" color="success">Save</v-btn>
+              <v-btn @click="saveNextEventTime" color="success">Save</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -167,6 +191,7 @@ export default {
     youtubeURLobject: "",
     youtubeID: "",
     savedURL: true,
+    datePickerMenu: false,
 
     showStream: false,
     showStreamobject: null,
@@ -179,6 +204,8 @@ export default {
     nextEventTime: {
       date: "",
       time: "",
+      title: "",
+      announcement: "",
     },
     nextEventTimeObject: null,
     savedNextEventTime: false,
@@ -271,12 +298,25 @@ export default {
     showEnd: function() {
       this.savedEnd = this.showEnd == this.showEndobject[".value"];
     },
-    nextEventTimeObject: function(val) {
-      this.nextEventTime = val[".value"];
+    nextEventTimeObject: {
+      deep: true,
+      handler: function(val) {
+        this.nextEventTime.time = val.time;
+        this.nextEventTime.date = val.date;
+        this.nextEventTime.title = val.title;
+        this.nextEventTime.announcement = val.announcement;
+      },
     },
-    nextEventTime: function() {
-      this.savedNextEventTime =
-        this.nextEventTime == this.nextEventTimeObject[".value"];
+    nextEventTime: {
+      deep: true,
+      handler: function() {
+        this.savedNextEventTime =
+          this.nextEventTime.time == this.nextEventTimeObject.time &&
+          this.nextEventTime.date == this.nextEventTimeObject.date &&
+          this.nextEventTime.title == this.nextEventTimeObject.title &&
+          this.nextEventTime.announcement ==
+            this.nextEventTimeObject.announcement;
+      },
     },
   },
 

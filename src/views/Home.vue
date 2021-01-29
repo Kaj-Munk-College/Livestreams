@@ -6,10 +6,12 @@
         <v-row align="center" justify="center">
           <v-col>
             <h1 class="text-center">Coming soon</h1>
-            <h3 class="text-center">Live Challengemiddag</h3>
-            <h4 class="text-center">5 Februari 14:45</h4>
+            <h3 class="text-center">{{ nextEventTime.title }}</h3>
+            <h4 class="text-center">{{ formattedDateStamp }}</h4>
             <br />
-            <flip-countdown deadline="2021-02-05 14:45"></flip-countdown>
+            <flip-countdown
+              :deadline="`${nextEventTime.date} ${nextEventTime.time}`"
+            ></flip-countdown>
             <br />
             <span class="fill-width" style="width: 100%">
               <v-btn
@@ -30,21 +32,11 @@
             <br />
             <br />
             <br /><br />
-            <p class="mx-10">
-              Beste groep-8 leerlingen,<br /><br />
-              Wat een pech, zit je helemaal klaar met je challengebag voor je
-              neus om te starten met de challengemiddag op woensdag 27 januari,
-              valt opeens tijdens de live-uitzending het geluid weg. Onze
-              technici hebben met man en macht geprobeerd het op te lossen, maar
-              dat betekende dat we pas om 16.30 uur gestart zijn. We vinden dat
-              heel jammer en snappen dat een aantal van jullie nu niet mee heeft
-              kunnen doen. Daarom organiseren we de challengemiddag nog een keer
-              op vrijdag 5 februari van 15.00 – 16.00 uur. Mocht je nog geen Kaj
-              Munk challengebag hebben opgehaald, neem dan even contact op met
-              <a href="mailto:j.vanderweijden@kajmunk.nl" target="_blank"
-                >j.vanderweijden@kajmunk.nl</a
-              >
-            </p>
+            <div
+              class="mx-10"
+              v-linkified
+              v-html="nextEventTime.announcement"
+            ></div>
             <!-- <p class="text-center">
               Tijdens de stream kunnen er vragen gesteld worden. <br />
               Hiervoor moet u inloggen. Dit kan voor de stream.
@@ -145,6 +137,11 @@ export default {
     showStreamobject: null,
     endOfStreamobject: null,
     document: document,
+    nextEventTime: {
+      time: "10:00",
+      date: "2021-1-1",
+      title: "Volgende evenement aan het inladen...",
+    },
 
     styles: {
       widthLimitter: {
@@ -247,12 +244,27 @@ export default {
     youtubeHeight() {
       return (this.youtubeWidth / 16) * 9;
     },
+
+    formattedDateStamp() {
+      var date = Date.parse(
+        this.nextEventTime.date + " " + this.nextEventTime.time
+      );
+      return new Date(date).toLocaleString("nl-NL", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+      });
+    },
   },
 
   firebase: {
     youtubeURLobject: db.ref("youtubeurl"),
     showStreamobject: db.ref("showstream"),
     endOfStreamobject: db.ref("streamended"),
+    nextEventTime: db.ref("nextEventTime"),
   },
 };
 </script>
