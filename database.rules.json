@@ -1,0 +1,40 @@
+{
+  "rules": {
+    ".read": "root.child('users').child(auth.uid).child('role').val() == 'admin'",
+    ".write": "root.child('users').child(auth.uid).child('role').val() == 'admin'",
+    "questions": {
+      "asked": {
+        "$uid": {
+          ".write": "$uid == auth.uid || root.child('users').child(auth.uid).child('role').val() == 'admin'",
+          ".read": "$uid == auth.uid || root.child('users').child(auth.uid).child('role').val() == 'admin'"
+        },
+        ".read": "root.child('users').child(auth.uid).child('role').val() == 'admin'",
+        ".write": "root.child('users').child(auth.uid).child('role').val() == 'admin'"
+      },
+      "FAQ": {
+        ".read": "true",
+        ".write": "root.child('users').child(auth.uid).child('role').val() == 'admin'"
+      }
+    },
+    "users": {
+      ".read": "root.child('users').child(auth.uid).child('role').val() == 'admin'",
+      ".write": "root.child('users').child(auth.uid).child('role').val() == 'admin' || !newData.exists()"
+    },
+    "showstream": {
+      ".write": "root.child('users').child(auth.uid).child('role').val() == 'admin'",
+      ".read": "true"
+    },
+    "streamended": {
+      ".read": "true",
+      ".write": "root.child('users').child(auth.uid).child('role').val() == 'admin'"
+    },
+    "youtubeurl": {
+      ".read": "true",
+      ".write": "root.child('users').child(auth.uid).child('role').val() == 'admin'"
+    },
+    "nextEventTime": {
+      ".read": "true",
+      ".write": "root.child('users').child(auth.uid).child('role').val() == 'admin'"
+    }
+  }
+}

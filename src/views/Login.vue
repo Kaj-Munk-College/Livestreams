@@ -127,10 +127,11 @@
           >
           <v-card-subtitle
             >U bent momenteel ingelogd met: <br />
-            <i
-              >{{ $store.state.user.email != null ? $store.state.user.email :
-              `Anoniem account` }}</i
-            >
+            <i>{{
+              $store.state.user.email != null
+                ? $store.state.user.email
+                : `Anoniem account`
+            }}</i>
           </v-card-subtitle>
 
           <v-card-text class="text-center justify-center">
@@ -220,6 +221,7 @@ export default {
         .signInWithPopup(provider)
         .then((result) => {
           this.$store.commit("setUser", result.user);
+          console.log(result.user.uid);
         })
         .catch((err) => console.error(err));
     },

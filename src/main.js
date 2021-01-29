@@ -45,10 +45,23 @@ firebase.auth().onAuthStateChanged((user) => {
   console.log(user);
   if (user != null) {
     store.commit("setUser", user);
+    isAdminUser();
   } else {
     store.commit("setUser", null);
+    store.commit("setIsAdminUser", false);
   }
 });
+
+export function isAdminUser() {
+  if (store.state.user == null) return false;
+  db.ref("users/" + store.state.user.uid)
+    .once("value")
+    .then((snapshot) => {
+      console.log(snapshot.val().role == "admin");
+      store.commit("setIsAdminUser", snapshot.val().role == "admin");
+      return snapshot.val().role == "admin";
+    });
+}
 
 Vue.config.productionTip = false;
 

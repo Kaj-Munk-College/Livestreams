@@ -206,6 +206,7 @@ export default {
       time: "",
       title: "",
       announcement: "",
+      UTCTime: 0,
     },
     nextEventTimeObject: null,
     savedNextEventTime: false,
@@ -305,6 +306,7 @@ export default {
         this.nextEventTime.date = val.date;
         this.nextEventTime.title = val.title;
         this.nextEventTime.announcement = val.announcement;
+        this.nextEventTime.UTCTime = val.UTCTime;
       },
     },
     nextEventTime: {
@@ -315,7 +317,8 @@ export default {
           this.nextEventTime.date == this.nextEventTimeObject.date &&
           this.nextEventTime.title == this.nextEventTimeObject.title &&
           this.nextEventTime.announcement ==
-            this.nextEventTimeObject.announcement;
+            this.nextEventTimeObject.announcement &&
+          this.nextEventTime.UTCTime == this.nextEventTimeObject.UTCTime;
       },
     },
   },
@@ -324,8 +327,9 @@ export default {
     isAdmin() {
       // console.log(this.$store.state.user.email);
       return (
-        this.$store.state.user != null &&
-        this.$store.state.user.email === "av@kajmunk.nl"
+        (this.$store.state.user != null &&
+          this.$store.state.user.email == "av@kajmunk.nl") ||
+        this.$store.state.isAdminUser
       );
     },
   },

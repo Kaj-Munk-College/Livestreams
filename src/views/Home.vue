@@ -110,6 +110,7 @@ import FlipCountdown from "vue2-flip-countdown";
 import { saveAs } from "file-saver";
 import * as ics from "ics";
 import { getIdFromURL } from "vue-youtube-embed";
+import moment from "moment";
 import { db } from "../main";
 import navbar from "./NavBar.vue";
 
@@ -246,17 +247,11 @@ export default {
     },
 
     formattedDateStamp() {
-      var date = Date.parse(
-        this.nextEventTime.date + " " + this.nextEventTime.time
+      var date = moment(
+        this.nextEventTime.date + " " + this.nextEventTime.time,
+        "YYYY-MM-DD hh:mm"
       );
-      return new Date(date).toLocaleString("nl-NL", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-      });
+      return date.locale("nl").format("LLL");
     },
   },
 
