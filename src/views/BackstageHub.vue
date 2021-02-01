@@ -1,5 +1,6 @@
 <template>
   <v-container fill-height fill-width fluid>
+    <navbar></navbar>
     <v-row align="center" justify="center">
       <v-col>
         <v-card>
@@ -55,7 +56,13 @@
 </template>
 
 <script>
-export default {};
+import navbar from "./NavBar.vue";
+
+export default {
+  components: {
+    navbar,
+  },
+};
 </script>
 
 <style></style>

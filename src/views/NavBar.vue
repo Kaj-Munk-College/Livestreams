@@ -60,7 +60,9 @@
                 >
               </v-list-item-content></router-link
             >
-            <v-list-item-icon><v-icon>settings</v-icon> </v-list-item-icon>
+            <v-list-item-icon @click="$router.push('/login')"
+              ><v-icon>settings</v-icon>
+            </v-list-item-icon>
           </v-list-item>
         </v-list>
       </v-menu>

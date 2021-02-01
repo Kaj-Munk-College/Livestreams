@@ -253,7 +253,7 @@ export default {
           .currentUser.updateProfile({ displayName: this.changeUsername });
 
       console.log(firebase.auth().currentUser);
-      this.$store.commit("setUser", firebase.auth().currentUser);
+      this.$store.commit("setUser", this.changeUsername);
     },
 
     loginAnonymous() {

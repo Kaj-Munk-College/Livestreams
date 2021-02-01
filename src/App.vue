@@ -61,7 +61,7 @@
             >Kaj Munk College</a
           >
           —
-          <i @click="$router.push('/backstage')">Versie: 1.2.8</i>
+          <i @click="$router.push('/backstage')">Versie: 1.2.9</i>
         </span>
 
         <br />
@@ -70,6 +70,7 @@
           <a
             style="color: inherit; text-decoration: none; font-weight: bold"
             href="https://github.com/minestarnl"
+            target="_blank"
             >Bram Koene</a
           ></span
         >

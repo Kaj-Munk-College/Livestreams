@@ -72,7 +72,7 @@ export default {
         } else if (this.tally.preview[0] == this.selectedCam) {
           console.log("preview");
           document.querySelector("#tallyBackground").style.backgroundColor =
-            "#00ff3c";
+            "#00ff00";
         } else {
           console.log("nothing");
           document.querySelector("#tallyBackground").style.backgroundColor =
@@ -83,6 +83,19 @@ export default {
 
     selectedCam: function() {
       Cookies.set("selectedCameraTally", this.selectedCam);
+      if (this.tally.program[0] == this.selectedCam) {
+        console.log("Actual!");
+        document.querySelector("#tallyBackground").style.backgroundColor =
+          "#ff0000";
+      } else if (this.tally.preview[0] == this.selectedCam) {
+        console.log("preview");
+        document.querySelector("#tallyBackground").style.backgroundColor =
+          "#00ff00";
+      } else {
+        console.log("nothing");
+        document.querySelector("#tallyBackground").style.backgroundColor =
+          "#363636";
+      }
     },
   },
 

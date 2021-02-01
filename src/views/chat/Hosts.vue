@@ -27,8 +27,9 @@ export default {
     isAdmin() {
       // console.log(this.$store.state.user.email);
       return (
-        this.$store.state.user != null &&
-        this.$store.state.user.email === "av@kajmunk.nl"
+        (this.$store.state.user != null &&
+          this.$store.state.user.email == "av@kajmunk.nl") ||
+        this.$store.state.isAdminUser
       );
     },
   },
