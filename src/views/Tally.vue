@@ -2,7 +2,8 @@
   <div
     id="tallyBackground"
     style="    width: 100%;
-    height: 100%;"
+    height: 100%; backgroundColor: #363636;"
+    dark
   >
     <navbar></navbar>
     <v-btn
@@ -67,15 +68,15 @@ export default {
         if (this.tally.program[0] == this.selectedCam) {
           console.log("Actual!");
           document.querySelector("#tallyBackground").style.backgroundColor =
-            "#13f222";
+            "#ff0000";
         } else if (this.tally.preview[0] == this.selectedCam) {
           console.log("preview");
           document.querySelector("#tallyBackground").style.backgroundColor =
-            "#eef213";
+            "#00ff3c";
         } else {
           console.log("nothing");
           document.querySelector("#tallyBackground").style.backgroundColor =
-            "white";
+            "#363636";
         }
       },
     },
