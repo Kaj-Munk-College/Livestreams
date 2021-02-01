@@ -30,6 +30,11 @@
             >
             <br />
             <br />
+            <v-btn @click="$router.push('/tally')" text color="error"
+              >Lampjes voor de camera persoontjes</v-btn
+            >
+            <br />
+            <br />
             <v-btn @click="$router.push('/admin')" text color="warning"
               >Stream Settings</v-btn
             >

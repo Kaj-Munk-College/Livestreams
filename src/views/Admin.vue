@@ -206,7 +206,6 @@ export default {
       time: "",
       title: "",
       announcement: "",
-      UTCTime: 0,
     },
     nextEventTimeObject: null,
     savedNextEventTime: false,
@@ -306,7 +305,6 @@ export default {
         this.nextEventTime.date = val.date;
         this.nextEventTime.title = val.title;
         this.nextEventTime.announcement = val.announcement;
-        this.nextEventTime.UTCTime = val.UTCTime;
       },
     },
     nextEventTime: {
@@ -317,8 +315,7 @@ export default {
           this.nextEventTime.date == this.nextEventTimeObject.date &&
           this.nextEventTime.title == this.nextEventTimeObject.title &&
           this.nextEventTime.announcement ==
-            this.nextEventTimeObject.announcement &&
-          this.nextEventTime.UTCTime == this.nextEventTimeObject.UTCTime;
+            this.nextEventTimeObject.announcement;
       },
     },
   },
