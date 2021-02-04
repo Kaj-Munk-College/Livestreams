@@ -40,7 +40,7 @@
 
     <v-container>
       <v-row v-if="currentPage == 'chat'">
-        <v-col cols="4">
+        <v-col cols="6">
           <div class="item-content">
             <div class="my-custom-content">
               <div>
@@ -136,7 +136,7 @@
           </div>
         </v-col>
 
-        <v-col cols="4">
+        <v-col cols="6">
           <div class="item-content">
             <div>
               <div>
@@ -229,15 +229,13 @@
           </div>
         </v-col>
 
-        <v-col cols="4">
+        <!-- <v-col cols="4">
           <div class="item-content">
-            <!-- Safe zone, enter your custom markup -->
             <div class="my-custom-content">
               <presentator-view></presentator-view>
             </div>
-            <!-- Safe zone ends -->
           </div>
-        </v-col>
+        </v-col> -->
       </v-row>
 
       <v-row v-if="currentPage == 'faq'">
@@ -268,7 +266,7 @@
 
 import { db } from "../../main";
 import navbar from "../../components/util/NavBar";
-import PresentatorView from "../../components/PresenterView.vue";
+// import PresentatorView from "../../components/PresenterView.vue";
 import FrequentAskedQuestionsEnterBox from "../../components/FAQ/FrequentAskedQuestionEnterBox.vue";
 import FrequentAskedQuestionListAdmin from "../../components/FAQ/FrequentAskedQuestionListAdmin.vue";
 import NotAsAdminMessage from "../../components/NotAsAdminMessage.vue";
@@ -277,7 +275,7 @@ import _ from "lodash";
 export default {
   components: {
     navbar,
-    PresentatorView,
+    // PresentatorView,
     FrequentAskedQuestionsEnterBox,
     FrequentAskedQuestionListAdmin,
     NotAsAdminMessage,

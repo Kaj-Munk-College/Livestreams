@@ -17,6 +17,7 @@ export default new Vuex.Store({
       announcement:
         "Het volgende evenement aan het inladen... Mocht dit na 10 seconde niet gelanden zijn probeer dan de pagina opnieuw te laden, of hem te openen in incognito/prive. Mochten er nog andere vragen zijn? -> whatsapp: 0623315007",
     },
+    interactiveQuestions: {},
   },
   mutations: {
     setUser(state, data) {
@@ -31,6 +32,12 @@ export default new Vuex.Store({
     bindNextEventTime: firebaseAction(({ bindFirebaseRef }) => {
       // return the promise returned by `bindFirebaseRef`
       return bindFirebaseRef("nextEventTime", db.ref("nextEventTime"));
+    }),
+    bindInteractiveQuestions: firebaseAction(({ bindFirebaseRef }) => {
+      return bindFirebaseRef(
+        "interactiveQuestions",
+        db.ref("interactiveQuestions")
+      );
     }),
   },
   modules: {},

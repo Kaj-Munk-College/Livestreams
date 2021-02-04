@@ -31,6 +31,11 @@
             >
             <br />
             <br />
+            <v-btn @click="$router.push('/quizmaster')" text color="primary"
+              >Quizmaster configuratie</v-btn
+            >
+            <br />
+            <br />
             <v-btn @click="$router.push('/tally')" text color="error"
               >Lampjes voor de camera persoontjes</v-btn
             >

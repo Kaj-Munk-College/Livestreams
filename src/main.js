@@ -39,6 +39,7 @@ firebase.analytics();
 export const db = firebase.database();
 
 store.dispatch("bindNextEventTime");
+store.dispatch("bindInteractiveQuestions");
 
 firebase.auth().onAuthStateChanged((user) => {
   console.log(user);
