@@ -80,6 +80,8 @@
 </template>
 
 <script>
+import isElectron from 'is-electron';
+
 export default {
   name: "App",
 
@@ -89,6 +91,12 @@ export default {
     //
     dialog: false,
   }),
+
+  computed: {
+    isElectron() {
+      return isElectron();
+    }
+  },
 
   mounted() {},
 

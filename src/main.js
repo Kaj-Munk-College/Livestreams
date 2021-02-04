@@ -12,9 +12,6 @@ import "firebase/auth";
 import { rtdbPlugin } from "vuefire";
 Vue.use(rtdbPlugin);
 
-import VueYouTubeEmbed from "vue-youtube-embed";
-Vue.use(VueYouTubeEmbed);
-
 import VueSocial from "@growthbunker/vuesocial";
 Vue.use(VueSocial, {
   iconPath: "/img/networks/",
@@ -40,6 +37,8 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
 export const db = firebase.database();
+
+store.dispatch("bindNextEventTime");
 
 firebase.auth().onAuthStateChanged((user) => {
   console.log(user);

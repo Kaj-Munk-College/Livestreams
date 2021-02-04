@@ -267,7 +267,7 @@
 // eslint-ignore vue/no-unused-components
 
 import { db } from "../../main";
-import navbar from "../NavBar.vue";
+import navbar from "../../components/util/NavBar";
 import PresentatorView from "../../components/PresenterView.vue";
 import FrequentAskedQuestionsEnterBox from "../../components/FAQ/FrequentAskedQuestionEnterBox.vue";
 import FrequentAskedQuestionListAdmin from "../../components/FAQ/FrequentAskedQuestionListAdmin.vue";

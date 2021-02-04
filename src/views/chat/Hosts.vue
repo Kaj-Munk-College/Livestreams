@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import navbar from "../NavBar.vue";
+import navbar from "../../components/util/NavBar";
 import PresentatorView from "../../components/PresenterView.vue";
 import NotAsAdminMessage from "../../components/NotAsAdminMessage.vue";
 

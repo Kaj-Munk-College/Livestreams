@@ -44,7 +44,7 @@
 
 <script>
 import { db } from "../main";
-import navbar from "./NavBar.vue";
+import navbar from "../components/util/NavBar";
 import Cookies from "js-cookie";
 
 export default {

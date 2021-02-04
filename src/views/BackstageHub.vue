@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import navbar from "./NavBar.vue";
+import navbar from "../components/util/NavBar";
 
 export default {
   components: {

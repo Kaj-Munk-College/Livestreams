@@ -173,7 +173,7 @@
 <script>
 import firebase from "firebase/app";
 import "firebase/auth";
-import navbar from "./NavBar.vue";
+import navbar from "../components/util/NavBar";
 
 export default {
   components: {

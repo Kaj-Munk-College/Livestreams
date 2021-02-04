@@ -175,7 +175,7 @@
 <script>
 import { db } from "../main";
 import { getIdFromURL } from "vue-youtube-embed";
-import navbar from "./NavBar.vue";
+import navbar from "../components/util/NavBar";
 import NotAsAdminMessage from "../components/NotAsAdminMessage.vue";
 
 export default {

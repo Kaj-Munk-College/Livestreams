@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar color="deep-blue" dark app>
+  <v-app-bar color="deep-blue" dark app class="titlebar">
     <!-- <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon> -->
 
     <v-btn
@@ -11,8 +11,10 @@
       <v-icon>menu</v-icon>
     </v-btn>
 
-    <v-toolbar-title @click="$router.push('/')"
-      >Kaj Munk Livestreams</v-toolbar-title
+    <v-toolbar-title
+      @click="$router.push('/')"
+      :style="isElectron ? 'padding-left: 55px' : ''"
+      >Kaj Munk Livestreams {{ isElectron ? "Desktop" : "" }}</v-toolbar-title
     >
 
     <v-spacer></v-spacer>
@@ -72,6 +74,7 @@
 
 <script>
 import Cookies from "js-cookie";
+import isElectron from "is-electron";
 
 export default {
   name: "navbar",
@@ -87,6 +90,12 @@ export default {
     },
   },
 
+  computed: {
+    isElectron() {
+      return isElectron();
+    },
+  },
+
   mounted() {
     this.darkMode =
       Cookies.get("darkMode") != undefined
@@ -97,7 +106,34 @@ export default {
 </script>
 
 <style scoped>
+.contentPadding {
+  padding-top: "56px" !important;
+  padding-bottom: 0px !important;
+}
+.v-application p {
+  margin-bottom: 0 !important;
+}
+
+scenenode {
+  background-color: yellow !important;
+}
+
 a:-webkit-any-link {
   text-decoration: none !important;
+}
+
+.toptitle {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  text-align: center;
+}
+
+.titlebar {
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+}
+
+body {
+  overflow-x: hidden;
 }
 </style>

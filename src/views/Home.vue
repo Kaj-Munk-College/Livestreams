@@ -6,11 +6,13 @@
         <v-row align="center" justify="center">
           <v-col>
             <h1 class="text-center">Coming soon</h1>
-            <h3 class="text-center">{{ nextEventTime.title }}</h3>
+            <h3 class="text-center">{{ $store.state.nextEventTime.title }}</h3>
             <h4 class="text-center">{{ formattedDateStamp }}</h4>
             <br />
             <flip-countdown
-              :deadline="`${nextEventTime.date} ${nextEventTime.time}`"
+              :deadline="
+                `${$store.state.nextEventTime.date} ${$store.state.nextEventTime.time}`
+              "
             ></flip-countdown>
             <br />
             <span class="fill-width" style="width: 100%">
@@ -35,7 +37,7 @@
             <div
               class="mx-10"
               v-linkified
-              v-html="nextEventTime.announcement"
+              v-html="$store.state.nextEventTime.announcement"
             ></div>
             <!-- <p class="text-center">
               Tijdens de stream kunnen er vragen gesteld worden. <br />
@@ -112,7 +114,7 @@ import * as ics from "ics";
 import { getIdFromURL } from "vue-youtube-embed";
 import moment from "moment";
 import { db } from "../main";
-import navbar from "./NavBar.vue";
+import navbar from "../components/util/NavBar";
 
 import EndOfStream from "../components/EndOfStream.vue";
 
