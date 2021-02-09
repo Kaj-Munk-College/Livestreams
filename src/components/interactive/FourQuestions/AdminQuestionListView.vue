@@ -29,7 +29,12 @@
                     ><v-btn color="primary" icon><v-icon>edit</v-icon></v-btn>
                   </v-col>
                   <v-col>
-                    <v-btn color="primary" icon><v-icon>add</v-icon></v-btn>
+                    <v-btn
+                      @click="addQuestionToNext(question)"
+                      color="primary"
+                      icon
+                      ><v-icon>add</v-icon></v-btn
+                    >
                   </v-col>
                   <v-col>
                     <v-btn color="primary" icon><v-icon>delete</v-icon></v-btn>
@@ -45,7 +50,16 @@
 </template>
 
 <script>
-export default {};
+import { db } from "../../../main";
+export default {
+  methods: {
+    addQuestionToNext(question) {
+      db.ref("interactiveQuestions/next")
+        .push()
+        .set(question);
+    },
+  },
+};
 </script>
 
 <style></style>

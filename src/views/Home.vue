@@ -62,7 +62,7 @@
     <div v-if="showStream && !endofstream">
       <h1 class="text-center">Live Uitzending</h1>
       <h5 class="text-center">
-        Challenge voltooid of toch nog vragen? Stuur dan een whatsapp:
+        Vragen? Stuur een bericht via teams of whatsapp:
       </h5>
       <h4 class="text-center">+31 6 23315007</h4>
       <h5 class="text-center">

@@ -5,7 +5,9 @@
         <v-row align="center" justify="center">
           <v-col>
             <h1 class="text-center">Het Einde</h1>
-            <h3 class="text-center">Dit was de Live Informatie Avond</h3>
+            <h3 class="text-center">
+              Dit was de {{ $store.state.nextEventTime.title }}
+            </h3>
             <h4 class="text-center">We zien u graag de volgende keer terug</h4>
 
             <br />

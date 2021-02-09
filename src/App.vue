@@ -61,7 +61,7 @@
             >Kaj Munk College</a
           >
           —
-          <i @click="$router.push('/backstage')">Versie: 1.2.9</i>
+          <i @click="$router.push('/backstage')">Versie: 1.2.10</i>
         </span>
 
         <br />
@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import isElectron from 'is-electron';
+import isElectron from "is-electron";
 
 export default {
   name: "App",
@@ -95,7 +95,7 @@ export default {
   computed: {
     isElectron() {
       return isElectron();
-    }
+    },
   },
 
   mounted() {},
