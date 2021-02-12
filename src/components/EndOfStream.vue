@@ -27,7 +27,7 @@
             <h4 class="text-center">Veel gestelde vragen</h4>
             <v-container>
               <v-row>
-                <v-col cols="12" md="7">
+                <v-col cols="12" md="5">
                   <v-expansion-panels>
                     <v-expansion-panel
                       v-for="(question, key) in askedQuestions"
@@ -42,8 +42,11 @@
                     </v-expansion-panel>
                   </v-expansion-panels>
                 </v-col>
-                <v-col cols="12" md="5">
+                <v-col cols="12" md="4">
                   <asking-question-box></asking-question-box>
+                </v-col>
+                <v-col cols="12" md="3">
+                  <support-channels-box></support-channels-box>
                 </v-col>
               </v-row>
             </v-container>
@@ -56,11 +59,14 @@
 
 <script>
 import AskingQuestionBox from "./QuestionAsking";
+import SupportChannelsBox from "./SupportChannelsBox";
+
 import { db } from "../main";
 
 export default {
   components: {
     AskingQuestionBox,
+    SupportChannelsBox,
   },
 
   data: () => {

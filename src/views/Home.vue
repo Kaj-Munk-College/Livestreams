@@ -18,7 +18,7 @@
               "
             ></flip-countdown>
             <br />
-            <span class="fill-width" style="width: 100%">
+            <!-- <span class="fill-width" style="width: 100%">
               <v-btn
                 style="
                   margin: auto !important;
@@ -33,8 +33,19 @@
               >
                 Voeg toe aan calender
               </v-btn>
-            </span>
+            </span> -->
             <br />
+            <p align="center">
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/lWW_3ALEDWk"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                class="text-center justify-center"
+              ></iframe>
+            </p>
             <br />
             <br /><br />
             <div
@@ -75,7 +86,7 @@
       </h5>
       <v-container fill-width>
         <v-row>
-          <v-col cols="12" md="7">
+          <v-col cols="12" md="5">
             <v-card id="youtubecard" ref="streamcard">
               <v-card-title primary-title>
                 <h3>Live stream</h3>
@@ -99,8 +110,11 @@
               </v-card-text>
             </v-card>
           </v-col>
-          <v-col cols="12" md="5">
+          <v-col cols="12" md="4">
             <asking-question-box></asking-question-box>
+          </v-col>
+          <v-col cols="12" md="3">
+            <support-channels-box></support-channels-box>
           </v-col>
         </v-row>
       </v-container>
@@ -120,6 +134,7 @@ import moment from "moment";
 import { db } from "../main";
 import navbar from "../components/util/NavBar";
 import AskingQuestionBox from "../components/QuestionAsking";
+import SupportChannelsBox from "../components/SupportChannelsBox";
 
 import EndOfStream from "../components/EndOfStream.vue";
 
@@ -131,6 +146,7 @@ export default {
     navbar,
     EndOfStream,
     AskingQuestionBox,
+    SupportChannelsBox,
   },
 
   data: () => ({

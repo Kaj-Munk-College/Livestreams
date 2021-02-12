@@ -61,7 +61,7 @@
             >Kaj Munk College</a
           >
           —
-          <i @click="$router.push('/backstage')">Versie: 1.2.10</i>
+          <i @click="$router.push('/backstage')">Versie: 1.2.11</i>
         </span>
 
         <br />
