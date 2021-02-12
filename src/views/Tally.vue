@@ -64,12 +64,12 @@ export default {
     tally: {
       deep: true,
       handler() {
-        console.log(this.tally.program[0]);
-        if (this.tally.program[0] == this.selectedCam) {
+        console.log(this.tally.program);
+        if (this.tally.program?.includes(this.selectedCam)) {
           console.log("Actual!");
           document.querySelector("#tallyBackground").style.backgroundColor =
             "#ff0000";
-        } else if (this.tally.preview[0] == this.selectedCam) {
+        } else if (this.tally.preview?.includes(this.selectedCam)) {
           console.log("preview");
           document.querySelector("#tallyBackground").style.backgroundColor =
             "#00ff00";
@@ -83,11 +83,11 @@ export default {
 
     selectedCam: function() {
       Cookies.set("selectedCameraTally", this.selectedCam);
-      if (this.tally.program[0] == this.selectedCam) {
+      if (this.tally.program?.includes(this.selectedCam)) {
         console.log("Actual!");
         document.querySelector("#tallyBackground").style.backgroundColor =
           "#ff0000";
-      } else if (this.tally.preview[0] == this.selectedCam) {
+      } else if (this.tally.preview?.includes(this.selectedCam)) {
         console.log("preview");
         document.querySelector("#tallyBackground").style.backgroundColor =
           "#00ff00";

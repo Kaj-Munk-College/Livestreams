@@ -5,8 +5,11 @@
       <v-container fill-height fluid fill-width>
         <v-row align="center" justify="center">
           <v-col>
-            <h1 class="text-center">Coming soon</h1>
-            <h3 class="text-center">{{ $store.state.nextEventTime.title }}</h3>
+            <h3 class="text-center">
+              Welkom! <br />
+              Hier is vanmiddag te zien:
+            </h3>
+            <h1 class="text-center">{{ $store.state.nextEventTime.title }}</h1>
             <h4 class="text-center">{{ formattedDateStamp }}</h4>
             <br />
             <flip-countdown
@@ -66,12 +69,13 @@
       </h5>
       <h4 class="text-center">+31 6 23315007</h4>
       <h5 class="text-center">
-        Na de livestream komt er de mogelijk om via deze website live vragen te
-        stellen.
+        Na de livestream komt er de mogelijkheid om teams live vragen te
+        stellen. Ga hiervoor naar
+        <a href="http://www.kajmunk.nl/stel-je-vraag-aan/">kajmunk.nl</a>
       </h5>
       <v-container fill-width>
         <v-row>
-          <v-col cols="12">
+          <v-col cols="12" md="7">
             <v-card id="youtubecard" ref="streamcard">
               <v-card-title primary-title>
                 <h3>Live stream</h3>
@@ -95,9 +99,9 @@
               </v-card-text>
             </v-card>
           </v-col>
-          <!-- <v-col cols="12" md="5">
-            
-          </v-col> -->
+          <v-col cols="12" md="5">
+            <asking-question-box></asking-question-box>
+          </v-col>
         </v-row>
       </v-container>
     </div>
@@ -115,6 +119,7 @@ import { getIdFromURL } from "vue-youtube-embed";
 import moment from "moment";
 import { db } from "../main";
 import navbar from "../components/util/NavBar";
+import AskingQuestionBox from "../components/QuestionAsking";
 
 import EndOfStream from "../components/EndOfStream.vue";
 
@@ -125,6 +130,7 @@ export default {
     FlipCountdown,
     navbar,
     EndOfStream,
+    AskingQuestionBox,
   },
 
   data: () => ({
