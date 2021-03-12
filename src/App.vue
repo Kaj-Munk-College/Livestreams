@@ -3,7 +3,14 @@
     <v-main style="margin-bottom: 84px">
       <router-view></router-view>
     </v-main>
-    <v-btn elevation="2" fab fixed bottom right @click="dialog = !dialog"
+    <v-btn
+      elevation="2"
+      fab
+      fixed
+      bottom
+      right
+      @click="dialog = !dialog"
+      v-if="$route.name == 'Home'"
       >?</v-btn
     >
     <v-dialog v-model="dialog" width="500">
@@ -51,7 +58,12 @@
       </v-card>
     </v-dialog>
 
-    <v-footer absolute class="font-weight-medium" fill-width>
+    <v-footer
+      absolute
+      class="font-weight-medium"
+      fill-width
+      v-if="$route.name != 'Music'"
+    >
       <v-col class="text-center" cols="12">
         <span>
           ©{{ new Date().getFullYear() }} —

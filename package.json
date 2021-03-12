@@ -19,6 +19,7 @@
   "main": "background.js",
   "dependencies": {
     "@growthbunker/vuesocial": "^0.1.2",
+    "audiomotion-analyzer": "^3.0.0",
     "core-js": "^3.6.5",
     "file-saver": "^2.0.2",
     "firebase": "^8.0.1",
