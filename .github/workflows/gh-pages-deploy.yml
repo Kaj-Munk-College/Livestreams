@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@main
       - uses: actions/setup-node@main
       - name: Install packages
-        run: npm i
+        run: npm i -f
       - name: Set Creds
         run: git config user.name "minestarnl" && git config user.email "bramkoene@gmail.com"
       - name: Deploy
