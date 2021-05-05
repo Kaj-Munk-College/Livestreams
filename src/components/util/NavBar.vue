@@ -19,7 +19,7 @@
 
     <v-spacer></v-spacer>
 
-    <router-link to="music"
+    <router-link v-if="!$store.state.isUsingBottomBar" to="music"
       ><v-tooltip bottom>
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on"><v-icon large>music_note</v-icon></v-btn>
@@ -28,7 +28,7 @@
       </v-tooltip>
     </router-link>
 
-    <div class="text-center">
+    <div class="text-center" v-if="!$store.state.isUsingBottomBar">
       <v-menu>
         <template v-slot:activator="{ on: menu }">
           <v-tooltip bottom>
@@ -140,6 +140,8 @@ a:-webkit-any-link {
 .titlebar {
   -webkit-user-select: none;
   -webkit-app-region: drag;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-top);
 }
 
 body {

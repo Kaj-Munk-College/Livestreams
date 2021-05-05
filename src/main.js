@@ -8,6 +8,8 @@ import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/analytics";
 import "firebase/auth";
+import { Plugins } from "@capacitor/core";
+const { SplashScreen } = Plugins;
 
 import { rtdbPlugin } from "vuefire";
 Vue.use(rtdbPlugin);
@@ -71,3 +73,6 @@ new Vue({
   vuetify,
   render: (h) => h(App),
 }).$mount("#app");
+
+// Hide the splash (you should do this on app launch)
+SplashScreen.hide();

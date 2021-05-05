@@ -1,0 +1,7 @@
+{
+  "appId": "nl.bramkoene.livestreamsport",
+  "appName": "Livestreams",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist"
+}

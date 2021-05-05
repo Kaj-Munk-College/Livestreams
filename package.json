@@ -19,8 +19,13 @@
   },
   "main": "background.js",
   "dependencies": {
+    "@capacitor/android": "^2.4.7",
+    "@capacitor/cli": "^2.4.7",
+    "@capacitor/core": "^2.4.7",
+    "@capacitor/ios": "^2.4.7",
     "@growthbunker/vuesocial": "^0.1.2",
     "audiomotion-analyzer": "^3.0.0",
+    "capacitor-music-controls-plugin": "^1.0.1",
     "core-js": "^3.6.5",
     "file-saver": "^2.0.2",
     "firebase": "^8.0.1",
@@ -36,6 +41,7 @@
     "vue-youtube-embed": "^2.2.2",
     "vue2-flip-countdown": "^0.11.1",
     "vuefire": "^2.2.4",
+    "vuescroll": "^4.17.3",
     "vuetify": "^2.2.11",
     "vuex": "^3.4.0",
     "vuexfire": "^3.2.5"

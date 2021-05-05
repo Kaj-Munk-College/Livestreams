@@ -84,7 +84,7 @@
     </div>
 
     <!-- Bottom control panel -->
-    <v-footer app fixed width="100%" padless px-5 pr-5 pt-3>
+    <v-footer app fixed width="100%" padless px-5 pr-5 pt-3 :style="$store.state.isUsingBottomBar ? 'margin-bottom: 70px' : 'margin-bottom: 0px'">
       <v-row class="align-center pt-3 px-2 pb-3" no-gutters>
         <v-col
           class="align-center"
@@ -195,14 +195,13 @@
           preload="auto"
           style="display: none;"
           :src="file"
-          :title="title"
+          title="title"
           author="Kaj Munk College"
-          :subtitle="title"
-          :data-title="title"
           id="audio"
+          playsinline
         ></audio>
         <div
-          v-if="!isMobile()"
+          v-if="!isMobile() || !isNative"
           id="analyzer"
           class="analyzer"
           ref="analyzer"
@@ -420,6 +419,9 @@
 import AudioMotionAnalyzer from "audiomotion-analyzer";
 import Cookies from "js-cookie";
 import Navbar from "../components/util/NavBar";
+import { Capacitor } from "@capacitor/core";
+import { Plugins } from "@capacitor/core";
+const { CapacitorMusicControls } = Plugins;
 
 const convertTimeHHMMSS = (val) => {
   let hhmmss = new Date(val * 1000).toISOString().substr(11, 8);
@@ -434,6 +436,7 @@ export default {
   },
   data: function() {
     return {
+      isNative: Capacitor.isNative == true,
       overlay: false,
       audio: undefined,
       currentSeconds: 0,
@@ -1180,6 +1183,49 @@ export default {
         this.fullscreen = false;
       }
     });
+
+    // register mobile media player controls
+    if (Capacitor.isNative) {
+      CapacitorMusicControls.create(
+        {
+          track: "Time is Running Out", // optional, default : ''
+          artist: "Muse", // optional, default : ''
+          album: "Lentefeest", // optional, default: ''
+
+          // hide previous/next/close buttons:
+          hasPrev: false, // show previous button, optional, default: true
+          hasNext: false, // show next button, optional, default: true
+          hasClose: true, // show close button, optional, default: false
+
+          // iOS only, optional
+          duration: 60, // optional, default: 0
+          elapsed: 10, // optional, default: 0
+          hasSkipForward: false, //optional, default: false. true value overrides hasNext.
+          hasSkipBackward: false, //optional, default: false. true value overrides hasPrev.
+          skipForwardInterval: 15, //optional. default: 15.
+          skipBackwardInterval: 15, //optional. default: 15.
+          hasScrubbing: false, //optional. default to false. Enable scrubbing from control center progress bar
+
+          // Android only, optional
+          isPlaying: true, // optional, default : true
+          dismissable: false, // optional, default : false
+          // text displayed in the status bar when the notification (and the ticker) are updated
+          ticker: 'Now playing "Time is Running Out"',
+          //All icons default to their built-in android equivalents
+          //The supplied drawable name, e.g. 'media_play', is the name of a drawable found under android/res/drawable* folders
+          playIcon: "media_play",
+          pauseIcon: "media_pause",
+          prevIcon: "media_prev",
+          nextIcon: "media_next",
+          closeIcon: "media_close",
+          notificationIcon: "notification",
+        },
+        (i) => console.log(i),
+        (e) => {
+          console.error(e);
+        }
+      );
+    }
   },
 
   computed: {

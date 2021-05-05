@@ -10,6 +10,7 @@ export default new Vuex.Store({
     user: null,
     packageVersion: process.env.PACKAGE_VERSION || "0",
     isAdminUser: false,
+    isUsingBottomBar: false,
     nextEventTime: {
       time: "10:00",
       date: "2021-1-1",
@@ -25,6 +26,9 @@ export default new Vuex.Store({
     },
     setIsAdminUser(state, data) {
       state.isAdminUser = data != undefined ? data : false;
+    },
+    setIsUsingBottomBar(state, data) {
+      state.isUsingBottomBar = data;
     },
     ...vuexfireMutations,
   },

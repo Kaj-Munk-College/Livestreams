@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Livestreams</string>
+    <string name="title_activity_main">Livestreams</string>
+    <string name="package_name">nl.bramkoene.livestreamsport</string>
+    <string name="custom_url_scheme">nl.bramkoene.livestreamsport</string>
+</resources>

@@ -1,6 +1,7 @@
 <template>
   <div>
     <navbar></navbar>
+    <!-- <refresh-and-reload></refresh-and-reload> -->
     <div v-if="!showStream && !endofstream">
       <v-container fill-height fluid fill-width>
         <v-row align="center" justify="center">
@@ -137,6 +138,7 @@ import AskingQuestionBox from "../components/QuestionAsking";
 import SupportChannelsBox from "../components/SupportChannelsBox";
 
 import EndOfStream from "../components/EndOfStream.vue";
+// import RefreshAndReload from "../components/util/RefreshAndReload.vue"
 
 export default {
   name: "Home",
@@ -147,6 +149,7 @@ export default {
     EndOfStream,
     AskingQuestionBox,
     SupportChannelsBox,
+    // RefreshAndReload
   },
 
   data: () => ({
