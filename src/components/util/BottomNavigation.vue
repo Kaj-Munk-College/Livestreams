@@ -1,5 +1,10 @@
 <template>
-  <v-bottom-navigation flat style="height: 70px" fixed shift>
+  <v-bottom-navigation
+    flat
+    style="height: 70px; padding-bottom: env(safe-area-inset-bottom)"
+    fixed
+    shift
+  >
     <v-container>
       <v-row
         style="

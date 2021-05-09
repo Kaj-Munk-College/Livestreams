@@ -1,9 +1,9 @@
 <template>
   <v-app>
-    <div v-if="$store.state.user == null && true">
+    <div v-if="$store.state.user == null && !usingMainApp">
       <mobile-start @goToApp="goToApp"></mobile-start>
     </div>
-    <div v-if="$store.state.user != null || !true">
+    <div v-if="$store.state.user != null || usingMainApp">
       <div class="content-container">
         <v-main style="margin-bottom: 84px">
           <router-view></router-view>
@@ -133,8 +133,8 @@ export default {
   },
 
   mounted() {
-    if (Capacitor.isNative == false) {
-      this.usingMainApp = true;
+    if (Capacitor.isNative == true) {
+      this.usingMainApp = false;
       this.$store.commit("setIsUsingBottomBar", true);
     }
   },

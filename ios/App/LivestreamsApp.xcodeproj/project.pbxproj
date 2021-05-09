@@ -16,6 +16,7 @@
 		50B271D11FEDC1A000F3C39B /* public in Resources */ = {isa = PBXBuildFile; fileRef = 50B271D01FEDC1A000F3C39B /* public */; };
 		EAFF40F374953AA74CAEEC18 /* Pods_LivestreamsApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF30FA4299848D31C4E600B9 /* Pods_LivestreamsApp.framework */; };
 		F42A1F41264206C700E4CA7A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F42A1F40264206C700E4CA7A /* AudioToolbox.framework */; };
+		F42A1F43264351C500E4CA7A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F42A1F42264351C500E4CA7A /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		E022A08689FD196203603181 /* Pods-LivestreamsApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LivestreamsApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LivestreamsApp/Pods-LivestreamsApp.debug.xcconfig"; sourceTree = "<group>"; };
 		F42A1F3F264206C700E4CA7A /* LivestreamsApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LivestreamsApp.entitlements; sourceTree = "<group>"; };
 		F42A1F40264206C700E4CA7A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		F42A1F42264351C500E4CA7A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FC68EB0AF532CFC21C3344DD /* Pods-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -85,6 +87,7 @@
 				504EC3071FED79650016851F /* AppDelegate.swift */,
 				504EC30B1FED79650016851F /* Main.storyboard */,
 				504EC30E1FED79650016851F /* Assets.xcassets */,
+				F42A1F42264351C500E4CA7A /* GoogleService-Info.plist */,
 				504EC3101FED79650016851F /* LaunchScreen.storyboard */,
 				504EC3131FED79650016851F /* Info.plist */,
 				2FAD9762203C412B000D30F8 /* config.xml */,
@@ -116,6 +119,7 @@
 				504EC3011FED79650016851F /* Frameworks */,
 				504EC3021FED79650016851F /* Resources */,
 				9592DBEFFC6D2A0C8D5DEB22 /* [CP] Embed Pods Frameworks */,
+				59F84A799ACEFE68B6A294CB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -171,12 +175,28 @@
 				50379B232058CBB4000EE86E /* capacitor.config.json in Resources */,
 				504EC30D1FED79650016851F /* Main.storyboard in Resources */,
 				2FAD9763203C412B000D30F8 /* config.xml in Resources */,
+				F42A1F43264351C500E4CA7A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		59F84A799ACEFE68B6A294CB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LivestreamsApp/Pods-LivestreamsApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		6634F4EFEBD30273BCE97C65 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

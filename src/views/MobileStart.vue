@@ -25,7 +25,7 @@
         >
       </v-col>
     </v-row>
-    <v-row>
+    <!-- <v-row>
       <v-col style="text-align: center">
         <gb-social-button
           class="login-button"
@@ -34,14 +34,24 @@
           >Log in met Microsoft</gb-social-button
         >
       </v-col>
-    </v-row>
-    <v-row>
+    </v-row> -->
+    <v-row v-if="allowSignInWithApple">
       <v-col style="text-align: center">
         <gb-social-button
           class="login-button"
           @click="loginWithApple"
           network="apple"
           >Sign in with Apple</gb-social-button
+        >
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col style="text-align: center">
+        <gb-social-button
+          class="login-button"
+          @click="anoDialog = !anoDialog"
+          network="codepen"
+          >Sign in with anonimous</gb-social-button
         >
       </v-col>
     </v-row>
@@ -98,12 +108,59 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog v-model="anoDialog" width="500">
+      <v-card>
+        <v-card-title
+          :class="
+            $vuetify.theme.dark
+              ? 'headline grey darken-2'
+              : 'headline grey lighten-2'
+          "
+        >
+          Log anoniem in
+        </v-card-title>
+
+        <v-card-text>
+          Geen gebruik willen maken van een sociale login?
+          <br />
+          <v-row>
+            <v-col>
+              <v-text-field
+                name="username"
+                label="Naam"
+                id="usernameEnterBox"
+                solo
+                hide-details="auto"
+                class="mb-3"
+                v-model="usernameEnterBox"
+              ></v-text-field>
+            </v-col>
+          </v-row>
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="success" outlined @click="loginAnonymous">Login</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="secondary" outlined text @click="anoDialog = false">
+            Sluiten
+          </v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
 <script>
 import firebase from "firebase/app";
 import "firebase/auth";
+import { cfaSignIn, mapUserToUserInfo } from "capacitor-firebase-auth";
+import { Capacitor } from "@capacitor/core";
+// import { UserInfo } from "firebase/app";
 
 export default {
   data: () => {
@@ -112,10 +169,18 @@ export default {
       password: "",
       wrongPassword: false,
       dialog: false,
+      anoDialog: false,
       changeUsername: "",
       usernameEnterBox: "",
     };
   },
+
+  computed: {
+    allowSignInWithApple() {
+      return Capacitor.platform == "ios" || Capacitor.platform == "web";
+    },
+  },
+
   methods: {
     loginWithEmail() {
       firebase
@@ -140,19 +205,27 @@ export default {
         });
     },
     loginWithGoogle() {
-      var provider = new firebase.auth.GoogleAuthProvider();
+      //   var provider = new firebase.auth.GoogleAuthProvider();
 
-      firebase.auth().useDeviceLanguage();
+      //   firebase.auth().useDeviceLanguage();
 
-      firebase
-        .auth()
-        .signInWithPopup(provider)
-        .then((result) => {
-          this.$store.commit("setUser", result.user);
-          console.log(result.user.uid);
+      //   firebase
+      //     .auth()
+      //     .signInWithPopup(provider)
+      //     .then((result) => {
+      //       this.$store.commit("setUser", result.user);
+      //       console.log(result.user.uid);
+      //       this.$emit("goToApp");
+      //     })
+      //     .catch((err) => console.error(err));
+
+      cfaSignIn("google.com")
+        .pipe(mapUserToUserInfo())
+        .subscribe((user) => {
+          this.$store.commit("setUser", user);
+          console.log(user.uid);
           this.$emit("goToApp");
-        })
-        .catch((err) => console.error(err));
+        });
     },
 
     loginWithMicrosoft() {
@@ -182,22 +255,26 @@ export default {
       firebase
         .auth()
         .signInWithPopup(provider)
-        .then((result) => {
-          this.$store.commit("setUser", result.user);
-          this.$emit("goToApp");
-        })
+
         .catch((err) => console.error(err));
     },
 
     loginAnonymous() {
-      firebase.auth().signInAnonymously();
+      if (this.usernameEnterBox == "") return;
 
-      this.username = this.usernameEnterBox;
-      this.usernameEnterBox = "";
+      firebase
+        .auth()
+        .signInAnonymously()
+        .then((result) => {
+          this.$store.commit("setUser", result.user);
+          this.username = this.usernameEnterBox;
+          this.usernameEnterBox = "";
 
-      firebase.auth().currentUser.updateProfile({
-        displayName: this.username,
-      });
+          firebase.auth().currentUser.updateProfile({
+            displayName: this.username,
+          });
+          this.$emit("goToApp");
+        });
     },
   },
 };

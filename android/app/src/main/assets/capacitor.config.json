@@ -3,5 +3,12 @@
   "appName": "Livestreams",
   "bundledWebRuntime": false,
   "npmClient": "npm",
-  "webDir": "dist"
+  "webDir": "dist",
+  "plugins": {
+    "CapacitorFirebaseAuth": {
+      "providers": ["google.com", "microsoft.com", "apple.com"],
+      "languageCode": "en",
+      "nativeAuth": true
+    }
+  }
 }

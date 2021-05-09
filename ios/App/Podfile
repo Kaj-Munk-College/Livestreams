@@ -10,6 +10,7 @@ def capacitor_pods
   # Automatic Capacitor Pod dependencies, do not delete
   pod 'Capacitor', :path => '../../node_modules/@capacitor/ios'
   pod 'CapacitorCordova', :path => '../../node_modules/@capacitor/ios'
+  pod 'CapacitorFirebaseAuth', :path => '../../node_modules/capacitor-firebase-auth'
   pod 'CapacitorMusicControlsPlugin', :path => '../../node_modules/capacitor-music-controls-plugin'
   # Do not delete
 end
@@ -17,4 +18,5 @@ end
 target 'LivestreamsApp' do
   capacitor_pods
   # Add your Pods here
+  pod 'Firebase/Auth'
 end

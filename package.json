@@ -25,6 +25,7 @@
     "@capacitor/ios": "^2.4.7",
     "@growthbunker/vuesocial": "^0.1.2",
     "audiomotion-analyzer": "^3.0.0",
+    "capacitor-firebase-auth": "^2.4.0",
     "capacitor-music-controls-plugin": "^1.0.1",
     "core-js": "^3.6.5",
     "file-saver": "^2.0.2",

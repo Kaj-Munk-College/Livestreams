@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>477367651017-gjucs8m879f5aqfhsjtrb6g799j5di5o.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.477367651017-gjucs8m879f5aqfhsjtrb6g799j5di5o</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBEhaGybs1Hs7WaQfASTvroPtt1h6A-FXQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>477367651017</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>nl.bramkoene.livestreamsport</string>
+	<key>PROJECT_ID</key>
+	<string>kleinkunstavondkmc</string>
+	<key>STORAGE_BUCKET</key>
+	<string>kleinkunstavondkmc.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:477367651017:ios:ecefeaa02e39b6308c5b18</string>
+	<key>DATABASE_URL</key>
+	<string>https://kleinkunstavondkmc.firebaseio.com</string>
+</dict>
+</plist>
