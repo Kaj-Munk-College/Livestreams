@@ -96,7 +96,7 @@
         </v-footer>
       </div>
 
-      <bottom-navigation v-if="isNative || true" fixed></bottom-navigation>
+      <bottom-navigation v-if="isNative" fixed></bottom-navigation>
     </div>
   </v-app>
 </template>
@@ -128,7 +128,7 @@ export default {
     },
 
     isNative() {
-      return Capacitor.isNative | true;
+      return Capacitor.isNative;
     },
   },
 
