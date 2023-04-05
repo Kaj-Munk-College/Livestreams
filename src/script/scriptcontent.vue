@@ -16858,7 +16858,7 @@ table th {
 }
 .c50 {
   background-color: #ffffff;
-  max-width: 453.4pt;
+  // max-width: 453.4pt;
   padding: 70.8pt 70.8pt 70.8pt 70.8pt;
 }
 .c76 {
