@@ -87,7 +87,7 @@
               >Website door:
               <a
                 style="color: inherit; text-decoration: none; font-weight: bold"
-                href="https://github.com/minestarnl"
+                href="https://bramkoene.nl"
                 target="_blank"
                 >Bram Koene</a
               ></span

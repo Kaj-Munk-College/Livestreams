@@ -36,7 +36,7 @@
               </v-btn>
             </span> -->
             <br />
-            <p align="center">
+            <!-- <p align="center">
               <iframe
                 width="560"
                 height="315"
@@ -46,7 +46,7 @@
                 allowfullscreen
                 class="text-center justify-center"
               ></iframe>
-            </p>
+            </p> -->
             <br />
             <br /><br />
             <div

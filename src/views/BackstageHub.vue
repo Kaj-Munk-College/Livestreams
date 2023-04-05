@@ -7,9 +7,7 @@
           <v-card-title primary-title>
             <div>
               <h3 class="headline mb-0">Backstage Hub</h3>
-              <div>
-                Makkelijke links voor backstage mensen.
-              </div>
+              <div>Makkelijke links voor backstage mensen.</div>
             </div>
           </v-card-title>
 
@@ -21,7 +19,7 @@
 
             {{ $store.user }}
 
-            <v-btn @click="$router.push('/chat')" text color="secondary"
+            <!-- <v-btn @click="$router.push('/chat')" text color="secondary"
               >Chat voor de reaguurders</v-btn
             >
             <br />
@@ -30,15 +28,15 @@
               >Chat voor de hosts</v-btn
             >
             <br />
-            <br />
-            <v-btn @click="$router.push('/quizmaster')" text color="primary"
-              >Quizmaster configuratie</v-btn
+            <br /> -->
+            <v-btn @click="$router.push('/script')" text color="primary"
+              >Live Script</v-btn
             >
-            <br />
+            <!-- <br />
             <br />
             <v-btn @click="$router.push('/tally')" text color="error"
               >Lampjes voor de camera persoontjes</v-btn
-            >
+            > -->
             <br />
             <br />
             <v-btn @click="$router.push('/admin')" text color="warning"

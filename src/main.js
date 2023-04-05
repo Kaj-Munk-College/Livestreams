@@ -22,6 +22,13 @@ Vue.use(VueSocial, {
 import linkify from "vue-linkify";
 Vue.directive("linkified", linkify);
 
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
+const options = {
+  // You can set your default options here
+};
+Vue.use(Toast, options);
+
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 var firebaseConfig = {
