@@ -16421,7 +16421,30 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import url("https://themes.googleusercontent.com/fonts/css?kit=fpjTOVmNbO4Lz34iLyptLUXza5VhXqVC6o75Eld_V98");
+/* latin */
+@font-face {
+  font-family: "Calibri";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/l/font?kit=J7afnpV-BGlaFfdAhLEY6w&skey=a1029226f80653a8&v=v15)
+    format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+/* latin */
+@font-face {
+  font-family: "Calibri";
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/l/font?kit=J7aanpV-BGlaFfdAjAo9_pxqHw&skey=cd2dd6afe6bf0eb2&v=v15)
+    format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+// @import url("https://themes.googleusercontent.com/fonts/css?kit=fpjTOVmNbO4Lz34iLyptLUXza5VhXqVC6o75Eld_V98");
 .lst-kix_list_1-3 > li:before {
   content: "\0025cf  ";
 }
@@ -17036,162 +17059,162 @@ h6 {
 }
 
 #currentScene {
-    margin-left: 1rem;
-    font-weight: bold;
-    color: #fff !important;
+  margin-left: 1rem;
+  font-weight: bold;
+  color: #fff !important;
 }
 
-#currentScene>span {
-    text-transform: capitalize;
-    font-weight: 300 !important;
-    color: #fff !important;
+#currentScene > span {
+  text-transform: capitalize;
+  font-weight: 300 !important;
+  color: #fff !important;
 }
 
 #scrollspy {
-    position: fixed;
-    right: 3vw;
-    top: 50vh;
-    /* width: 230px; */
-    transform: translateY(-50%);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !important;
-    text-transform: capitalize;
+  position: fixed;
+  right: 3vw;
+  top: 50vh;
+  /* width: 230px; */
+  transform: translateY(-50%);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !important;
+  text-transform: capitalize;
 }
 
 .exclude,
 .exclude * {
-    text-decoration: line-through !important;
-    text-decoration-color: red !important;
-    color: red !important;
+  text-decoration: line-through !important;
+  text-decoration-color: red !important;
+  color: red !important;
 }
 
 .table-of-contents a:hover {
-    border-left-color: rgb(133, 53, 184) !important;
+  border-left-color: rgb(133, 53, 184) !important;
 }
 
 .table-of-contents a.active {
-    border-left-color: rgb(106, 27, 154) !important;
-    color: #808080 !important;
+  border-left-color: rgb(106, 27, 154) !important;
+  color: #808080 !important;
 }
 
 body[theme="dark"] .c8,
 body[theme="dark"] .c18,
 body[theme="dark"] .brand-logo {
-    color: #EEE !important;
+  color: #eee !important;
 }
 
 body[theme="dark"] .c19,
 body[theme="dark"] .c11,
 body[theme="dark"] .c29,
 body[theme="dark"] .c15 {
-    color: black !important;
+  color: black !important;
 }
 
 body[theme="dark"],
 body[theme="dark"] .c24 {
-    background-color: #202124 !important;
+  background-color: #202124 !important;
 }
 
 body[theme="dark"] span,
 body[theme="dark"] p {
-    color: #a9a9a9 !important;
+  color: #a9a9a9 !important;
 }
 
 body[theme="dark"] .comment {
-    background-color: #3f3f3f;
-    color: white !important;
+  background-color: #3f3f3f;
+  color: white !important;
 }
 
 body[theme="light"] .comment {
-    background-color: #aaaaaa;
-    color: black !important;
+  background-color: #aaaaaa;
+  color: black !important;
 }
 
 * {
-    user-select: none;
-    transition: text 400ms;
-    transition: background 400ms;
+  user-select: none;
+  transition: text 400ms;
+  transition: background 400ms;
 }
 
 body[embed="true"] {
-    width: calc(100vw - 30px) !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    background-color: transparent !important;
-    /* overflow: hidden !important; */
+  width: calc(100vw - 30px) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background-color: transparent !important;
+  /* overflow: hidden !important; */
 }
 
 body[embed="true"] .c24 {
-    background-color: transparent !important;
-    width: calc(100vw - 30px) !important;
-    padding: 0 !important;
-    margin: 20px !important;
-    /* overflow: hidden !important; */
+  background-color: transparent !important;
+  width: calc(100vw - 30px) !important;
+  padding: 0 !important;
+  margin: 20px !important;
+  /* overflow: hidden !important; */
 }
 
 body[embed="true"] .c19 {
-    color: black !important;
+  color: black !important;
 }
 
 body[embed="true"] #scrollspy,
 body[embed="true"] .fixed-action-btn {
-    display: none !important;
+  display: none !important;
 }
 
 body[embed="true"] span {
-    color: #e6e6e6;
+  color: #e6e6e6;
 }
 
 body[embed="true"] * {
-    color: #e6e6e6;
-    font-size: large;
+  color: #e6e6e6;
+  font-size: large;
 }
 
 body[mobile="true"] {
-    width: calc(100vw - 40px) !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    /* overflow: hidden !important; */
+  width: calc(100vw - 40px) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  /* overflow: hidden !important; */
 }
 
 body[mobile="true"] .c24 {
-    background-color: transparent !important;
-    width: calc(100vw - 40px) !important;
-    padding: 0 !important;
-    margin: 20px !important;
-    /* overflow: hidden !important; */
-    padding-left: 10px !important;
+  background-color: transparent !important;
+  width: calc(100vw - 40px) !important;
+  padding: 0 !important;
+  margin: 20px !important;
+  /* overflow: hidden !important; */
+  padding-left: 10px !important;
 }
 
 body[mobile="true"] .show-on-large {
-    display: none !important;
+  display: none !important;
 }
 
 #overlay {
-    position: fixed;
-    display: block;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.9);
-    z-index: 2;
-    cursor: wait;
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 2;
+  cursor: wait;
 }
 
 .progress {
-    position: absolute;
-    /* height: 10px;
+  position: absolute;
+  /* height: 10px;
     width: 100px; */
-    width: 50rem;
-    top: 50vh;
-    left: 50vw;
-    transform: translate(-50%);
-    height: 10px;
-    border-radius: 50px !important;
+  width: 50rem;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%);
+  height: 10px;
+  border-radius: 50px !important;
 }
-
 
 /* h1 {
     position: absolute;
@@ -17203,58 +17226,57 @@ body[mobile="true"] .show-on-large {
 } */
 
 .indeterminate::before {
-    border-radius: 50px !important;
+  border-radius: 50px !important;
 }
 
 .indicator {
-    position: absolute;
-    width: 5px;
-    background-color: rgb(106, 27, 154);
+  position: absolute;
+  width: 5px;
+  background-color: rgb(106, 27, 154);
 }
 
 .selected {
-    /* outline: 5px solid rgb(106, 27, 154); */
-    /* border-left: 5px solid rgb(106, 27, 154); */
-    animation: blinker 1s linear infinite;
-    box-shadow: -5px 0px 0px 0px rgb(106, 27, 154);
+  /* outline: 5px solid rgb(106, 27, 154); */
+  /* border-left: 5px solid rgb(106, 27, 154); */
+  animation: blinker 1s linear infinite;
+  box-shadow: -5px 0px 0px 0px rgb(106, 27, 154);
 }
 
 body[loggedin="true"] .c24 p {
-    cursor: pointer !important;
+  cursor: pointer !important;
 }
 
 .c24 p {
-    cursor: not-allowed;
+  cursor: not-allowed;
 }
 
 ol {
-    margin: 0;
-    padding: 0
+  margin: 0;
+  padding: 0;
 }
 
 table td,
 table th {
-    padding: 0
+  padding: 0;
 }
 
-
 :target {
-    display: block
+  display: block;
 }
 
 .comment {
-    right: 80px;
-    position: absolute;
-    padding: 10px;
-    padding-top: 7px;
-    padding-bottom: 7px;
-    border-radius: 10%;
-    max-width: 20%;
-    background-color: #aaaaaa;
-    color: black !important;
+  right: 80px;
+  position: absolute;
+  padding: 10px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  border-radius: 10%;
+  max-width: 20%;
+  background-color: #aaaaaa;
+  color: black !important;
 }
 
 .commentModeIndicator {
-    position: fixed !important;
+  position: fixed !important;
 }
 </style>
