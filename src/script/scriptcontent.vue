@@ -20923,7 +20923,7 @@ table th {
 .c23 {
   background-color: #ffffff;
   // max-width: 451.4pt;
-  padding: 72pt 72pt 72pt 72pt;
+  padding: 72pt 16pt 72pt 16pt;
 }
 
 .c12 {
