@@ -49,9 +49,9 @@
     </div>
     <div class="indicator"></div>
     <div class="fixed-action-btn">
-      <a class="btn-floating btn-large purple darken-4">
+      <v-btn elevation="2" fixed bottom right fab>
         <i class="large material-icons">arrow_upward</i>
-      </a>
+      </v-btn>
     </div>
 
     <!-- <div id="overlay">
@@ -132,6 +132,9 @@ import {confetti} from "./js/deps/confetti.min.js"
 // import "./js/main.js"
 // import "./js/comment.js"
 
+const docClass = 'c23'
+const emptyClass = 'c0'
+
 const database = firebase.database();
 
 export default {
@@ -193,7 +196,7 @@ export default {
             if (
             $(`#${elems_after[i - 1]}`)
                 .next()
-                .hasClass("c5")
+                .hasClass(emptyClass)
             )
             break;
             elems_after.push(
@@ -208,7 +211,7 @@ export default {
             if (
             $(`#${elems_before[j - 1]}`)
                 .prev()
-                .hasClass("c5")
+                .hasClass(emptyClass)
             )
             break;
             elems_before.push(
@@ -229,9 +232,9 @@ export default {
      */
       onScroll: async function () {
         if (this.elems.length == 0) return;
-        // var y = (($(`#${elems[0]}`).offset().top - this.topMargin) - $(window).scrollTop())
-        // if ((y < -30 || y > 30)) $(".fixed-action-btn").show()
-        // else $(".fixed-action-btn").hide()
+        var y = (($(`#${this.elems[0]}`).offset().top - this.topMargin) - $(window).scrollTop())
+        if ((y < -30 || y > 30)) $(".fixed-action-btn").show()
+        else $(".fixed-action-btn").hide()
         var elScrolledBy = [],
         currentSceneText = "scene 1";
 
@@ -301,7 +304,7 @@ export default {
         this.topMargin = scene ? 100 : 200;
         this.elems = val;
         this.assignSelector();
-        $(".c50 .selected").removeClass("selected");
+        $(`.${docClass} .selected`).removeClass("selected");
         if (this.scrolling) return;
         this.scrolling = true;
         $("html, body").animate(
@@ -341,7 +344,7 @@ export default {
             height +
             $(`#${this.elems[0]}`).height() - $(`#app > div.v-application--wrap > div > div > main > div > div > header`).height()
         )
-        .css("left", $(`#0`).offset().left - 20)
+        .css("left", $(`#0`).first().offset().left - 20)
         .css("height", height);
     },
   },
@@ -391,7 +394,7 @@ export default {
         $(".navbar-fixed").hide(), $("body").attr("embed", "true"); //   These attributes are read by the CSS
     if (location.hash == "#mobile" || $(window).width() < 900)
         $("body").attr("mobile", "true"); // and will hide/show some elements
-    $(".c3").each(function (index) {
+    $(emptyClass).each(function (index) {
         $(this).attr("id", `scene-${index}`);
         if ($(this).text()) {
         var text = $(this).text();
@@ -419,10 +422,10 @@ export default {
         }
         );
     });
-    document.querySelectorAll(".c50 p").forEach((el) => {
+    document.querySelectorAll(`.${docClass} p`).forEach((el) => {
       el.addEventListener('click', () => {console.log("SCOROL"); this.scrollTo(el)})
     })
-    $(".c50 p").each(function (index) {
+    $(`.${docClass} p`).each(function (index) {
         $(this).attr("id", index);
         if (!$(this).is(".title")) $(this).click(() => {this.scrollTo; console.log("Scrolling")});
         this.addEventListener('click', () => {console.log("SCOROL"); this.scrollTo(this)})
@@ -655,431 +658,6 @@ body[loggedin="true"] .c24 p {
 
 .c24 p {
   cursor: not-allowed;
-}
-
-ol {
-  margin: 0;
-  padding: 0;
-}
-
-table td,
-table th {
-  padding: 0;
-}
-
-.c17 {
-  border-right-style: solid;
-  padding: 5pt 5pt 5pt 5pt;
-  border-bottom-color: transparent;
-  border-top-width: 1pt;
-  border-right-width: 1pt;
-  border-left-color: transparent;
-  vertical-align: top;
-  border-right-color: transparent;
-  border-left-width: 1pt;
-  border-top-style: solid;
-  border-left-style: solid;
-  border-bottom-width: 1pt;
-  width: 353.2pt;
-  border-top-color: transparent;
-  border-bottom-style: solid;
-}
-
-.c0 {
-  color: #000000;
-  font-weight: 400;
-  text-decoration: none;
-  vertical-align: baseline;
-  font-size: 11pt;
-  font-family: "Arial";
-  font-style: italic;
-}
-
-.c3 {
-  padding-top: 0pt;
-  padding-bottom: 0pt;
-  line-height: 1;
-  orphans: 2;
-  widows: 2;
-  text-align: left;
-  height: 11pt;
-}
-
-.c7 {
-  color: #000000;
-  font-weight: 400;
-  text-decoration: none;
-  vertical-align: baseline;
-  font-size: 11pt;
-  font-family: "Arial";
-  font-style: normal;
-}
-
-.c39 {
-  -webkit-text-decoration-skip: none;
-  color: #000000;
-  text-decoration: underline;
-  vertical-align: baseline;
-  text-decoration-skip-ink: none;
-  font-size: 16pt;
-  font-style: normal;
-}
-
-.c26 {
-  -webkit-text-decoration-skip: none;
-  color: #000000;
-  text-decoration: underline;
-  vertical-align: baseline;
-  text-decoration-skip-ink: none;
-  font-size: 11pt;
-  font-style: normal;
-}
-
-.c38 {
-  color: #000000;
-  font-weight: 400;
-  text-decoration: none;
-  vertical-align: baseline;
-  font-size: 72pt;
-  /* font-family: "Calibri"; */
-  font-style: normal;
-}
-
-.c8 {
-  color: #000000;
-  font-weight: 700;
-  text-decoration: none;
-  vertical-align: baseline;
-  font-size: 11pt;
-  font-family: "Arial";
-  font-style: normal;
-}
-
-.c2 {
-  /* background-color: #ffffff; */
-  padding-top: 0pt;
-  padding-bottom: 0pt;
-  line-height: 1;
-  orphans: 2;
-  widows: 2;
-  text-align: left;
-}
-
-.c6 {
-  padding-top: 0pt;
-  padding-bottom: 0pt;
-  line-height: 1;
-  orphans: 2;
-  widows: 2;
-  text-align: left;
-}
-
-.c35 {
-  padding-top: 0pt;
-  padding-bottom: 8pt;
-  line-height: 1.0791666666666666;
-  orphans: 2;
-  widows: 2;
-  text-align: center;
-}
-
-.c22 {
-  padding-top: 0pt;
-  padding-bottom: 0pt;
-  line-height: 1.1500000000000001;
-  orphans: 2;
-  widows: 2;
-  text-align: center;
-}
-
-.c27 {
-  padding-top: 0pt;
-  padding-bottom: 0pt;
-  line-height: 1;
-  orphans: 2;
-  widows: 2;
-  text-align: center;
-}
-
-.c28 {
-  padding-top: 0pt;
-  padding-bottom: 0pt;
-  line-height: 1.1500000000000001;
-  orphans: 2;
-  widows: 2;
-  text-align: justify;
-}
-
-.c1 {
-  padding-top: 0pt;
-  padding-bottom: 0pt;
-  line-height: 1.1500000000000001;
-  orphans: 2;
-  widows: 2;
-  text-align: left;
-}
-
-.c4 {
-  padding-top: 0pt;
-  padding-bottom: 0pt;
-  line-height: 1;
-  orphans: 2;
-  widows: 2;
-  text-align: justify;
-}
-
-.c10 {
-  padding-top: 0pt;
-  padding-bottom: 8pt;
-  line-height: 1.0791666666666666;
-  orphans: 2;
-  widows: 2;
-  text-align: left;
-}
-
-.c16 {
-  color: #212121;
-  text-decoration: none;
-  vertical-align: baseline;
-  font-size: 11pt;
-  font-style: normal;
-}
-
-.c34 {
-  border-spacing: 0;
-  border-collapse: collapse;
-  margin-right: auto;
-}
-
-.c20 {
-  color: #000000;
-  text-decoration: none;
-  vertical-align: baseline;
-  font-size: 11pt;
-}
-
-.c36 {
-  text-decoration: none;
-  vertical-align: baseline;
-  font-size: 10pt;
-  font-style: normal;
-}
-
-.c9 {
-  font-family: "Arial";
-  font-style: italic;
-  font-weight: 700;
-}
-
-.c11 {
-  /* background-color: #ff00ff; */
-  font-family: "Arial";
-  font-weight: 700;
-}
-
-.c33 {
-  text-decoration: none;
-  vertical-align: baseline;
-  font-size: 11pt;
-}
-
-@media only screen and (min-width: 600px) {
-  .c24 {
-    background-color: #ffffff;
-    width: 60rem !important;
-    /* padding: 70.8pt 70.8pt 70.8pt 70.8pt; */
-    margin-top: 10px;
-    margin-left: calc(50vw - 30rem);
-  }
-}
-
-.c12 {
-  font-weight: 400;
-  font-family: "Arial";
-}
-
-.c14 {
-  margin-left: 35.4pt;
-  text-indent: -35.4pt;
-}
-
-.c37 {
-  margin-left: 106.3pt;
-  text-indent: -106.3pt;
-}
-
-.c30 {
-  margin-left: 35.4pt;
-  text-indent: 35.4pt;
-}
-
-.c18 {
-  font-weight: 700;
-  font-family: "Arial";
-}
-
-.c21 {
-  margin-left: 70.8pt;
-  text-indent: -70.8pt;
-}
-
-.c23 {
-  margin-left: 106pt;
-  text-indent: -106pt;
-}
-
-.c5 {
-  height: 11pt;
-}
-
-.c40 {
-  height: 0pt;
-}
-
-.c29 {
-  background-color: #ff0000;
-}
-
-.c19 {
-  background-color: #ffff00;
-}
-
-.c31 {
-  height: 57pt;
-}
-
-/* .c25 {
-    background-color: #ffffff
-} */
-
-.c13 {
-  font-style: italic;
-}
-
-.c32 {
-  color: #212121;
-}
-
-.title {
-  padding-top: 0pt;
-  color: #000000;
-  font-size: 28pt;
-  padding-bottom: 0pt;
-  font-family: "Calibri";
-  line-height: 1;
-  orphans: 2;
-  widows: 2;
-  text-align: left;
-}
-
-.subtitle {
-  padding-top: 18pt;
-  color: #666666;
-  font-size: 24pt;
-  padding-bottom: 4pt;
-  font-family: "Georgia";
-  line-height: 1.0791666666666666;
-  page-break-after: avoid;
-  font-style: italic;
-  orphans: 2;
-  widows: 2;
-  text-align: left;
-}
-
-li {
-  color: #000000;
-  font-size: 11pt;
-  /* font-family: "Calibri" */
-}
-
-p {
-  margin: 0;
-  color: #000000;
-  font-size: 11pt;
-  /* font-family: "Calibri" */
-}
-
-h1 {
-  padding-top: 12pt;
-  color: #2f5496;
-  font-size: 16pt;
-  padding-bottom: 0pt;
-  font-family: "Calibri";
-  line-height: 1.0791666666666666;
-  page-break-after: avoid;
-  orphans: 2;
-  widows: 2;
-  text-align: left;
-}
-
-h2 {
-  padding-top: 18pt;
-  color: #000000;
-  font-weight: 700;
-  font-size: 18pt;
-  padding-bottom: 4pt;
-  /* font-family: "Calibri"; */
-  line-height: 1.0791666666666666;
-  page-break-after: avoid;
-  orphans: 2;
-  widows: 2;
-  text-align: left;
-}
-
-h3 {
-  padding-top: 14pt;
-  color: #000000;
-  font-weight: 700;
-  font-size: 14pt;
-  padding-bottom: 4pt;
-  /* font-family: "Calibri"; */
-  line-height: 1.0791666666666666;
-  page-break-after: avoid;
-  orphans: 2;
-  widows: 2;
-  text-align: left;
-}
-
-h4 {
-  padding-top: 12pt;
-  color: #000000;
-  font-weight: 700;
-  font-size: 12pt;
-  padding-bottom: 2pt;
-  /* font-family: "Calibri"; */
-  line-height: 1.0791666666666666;
-  page-break-after: avoid;
-  orphans: 2;
-  widows: 2;
-  text-align: left;
-}
-
-h5 {
-  padding-top: 11pt;
-  color: #000000;
-  font-weight: 700;
-  font-size: 11pt;
-  padding-bottom: 2pt;
-  /* font-family: "Calibri"; */
-  line-height: 1.0791666666666666;
-  page-break-after: avoid;
-  orphans: 2;
-  widows: 2;
-  text-align: left;
-}
-
-h6 {
-  padding-top: 10pt;
-  color: #000000;
-  font-weight: 700;
-  font-size: 10pt;
-  padding-bottom: 2pt;
-  /* font-family: "Calibri"; */
-  line-height: 1.0791666666666666;
-  page-break-after: avoid;
-  orphans: 2;
-  widows: 2;
-  text-align: left;
 }
 
 @media only screen and (max-width: 600px) {
