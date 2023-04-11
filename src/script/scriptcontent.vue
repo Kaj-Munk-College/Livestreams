@@ -4148,12 +4148,12 @@ export default {
   text-transform: capitalize;
 }
 
-.exclude,
-.exclude * {
-  text-decoration: line-through !important;
-  text-decoration-color: red !important;
-  color: red !important;
-}
+// .exclude,
+// .exclude * {
+//   text-decoration: line-through !important;
+//   text-decoration-color: red !important;
+//   color: red !important;
+// }
 
 .table-of-contents a:hover {
   border-left-color: rgb(133, 53, 184) !important;
