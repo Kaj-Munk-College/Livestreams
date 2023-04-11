@@ -188,7 +188,6 @@ export default {
      * @description This function is executed when a user clicks (using arrowkeys/space also counts as click) on a script sentence. It calculates which other sentences belong to the selected one and then pushes an array of line indexxes to the realtime firebase database
      */
       scrollTo: async function(target) {
-        console.log("SCROOLING")
         if (!this.commentMode) {
         if (location.hash == "#embed" || $(target).text() == "") return;
         var elems_after = [$(target).attr("id")];
@@ -410,7 +409,6 @@ export default {
     $("#scrollspy > ul > li").each(function () {
         $(this).attr("value", $(this).text());
         $(this).click(() =>{
-          console.log("clicked");
         this.scroll(
             [
             $(`#scene-${$(this).attr("index")}`)
@@ -423,12 +421,12 @@ export default {
         );
     });
     document.querySelectorAll(`.${docClass} p`).forEach((el) => {
-      el.addEventListener('click', () => {console.log("SCOROL"); this.scrollTo(el)})
+      el.addEventListener('click', () => this.scrollTo(el))
     })
     $(`.${docClass} p`).each(function (index) {
         $(this).attr("id", index);
-        if (!$(this).is(".title")) $(this).click(() => {this.scrollTo; console.log("Scrolling")});
-        this.addEventListener('click', () => {console.log("SCOROL"); this.scrollTo(this)})
+        if (!$(this).is(".title")) $(this).click(() => this.scrollTo);
+        this.addEventListener('click', () => this.scrollTo(this))
     });
     $(".fixed-action-btn").click(() => this.scrollTop());
     });
