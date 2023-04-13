@@ -270,11 +270,15 @@ export default {
         if ([37, 38].includes(e.which)) {
         e.preventDefault();
         /* eslint-disable for-direction */
+        console.log(parseInt(this.elems[this.elems.length - 1]) - 1)
+        console.log(parseInt(this.elems[this.elems.length - 1]) + 100)
         for (
             var id = parseInt(this.elems[this.elems.length - 1]) - 1;
             id < parseInt(this.elems[this.elems.length - 1]) + 100;
             id--
         ) {
+          if(id < -50) break;
+          console.log(id)
             if ($(`#${id}`).text() != "") {
             $(`#${id}`).click();
             break;
@@ -349,11 +353,11 @@ export default {
   },
 
   mounted() {
-    $(document).ready(function () {
-      $(".modal").modal();
-      $("select").formSelect();
-      $(".tooltipped").tooltip();
-    });
+    // $(document).ready(function () {
+    //   $(".modal").modal();
+    //   $("select").formSelect();
+    //   $(".tooltipped").tooltip();
+    // });
 
     if (window.location.hash.substring(1) == "video") {
       $("#nav-mobile > li:nth-child(5)").css("display", "block");
@@ -423,7 +427,13 @@ export default {
     document.querySelectorAll(`.${docClass} p`).forEach((el) => {
       el.addEventListener('click', () => this.scrollTo(el))
     })
-    $(`.${docClass} p`).each(function (index) {
+    document.querySelectorAll(`.${docClass} h1`).forEach((el) => {
+      el.addEventListener('click', () => this.scrollTo(el))
+    })
+    document.querySelectorAll(`.${docClass} h2`).forEach((el) => {
+      el.addEventListener('click', () => this.scrollTo(el))
+    })
+    $(`.${docClass} p, .${docClass} h1, .${docClass} h2`).each(function (index) {
         $(this).attr("id", index);
         if (!$(this).is(".title")) $(this).click(() => this.scrollTo);
         this.addEventListener('click', () => this.scrollTo(this))
