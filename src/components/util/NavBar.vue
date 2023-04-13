@@ -19,14 +19,14 @@
 
     <v-spacer></v-spacer>
 
-    <router-link v-if="!$store.state.isUsingBottomBar" to="music"
+    <!-- <router-link v-if="!$store.state.isUsingBottomBar" to="music"
       ><v-tooltip bottom>
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on"><v-icon large>music_note</v-icon></v-btn>
         </template>
         <span>Music</span>
       </v-tooltip>
-    </router-link>
+    </router-link> -->
 
     <div class="text-center" v-if="!$store.state.isUsingBottomBar">
       <v-menu>
