@@ -2095,6 +2095,7 @@
     <p class="c1">
       <span class="c4">HERMIA af. TITANIA met haar GEVOLG op.</span>
     </p>
+    <p class="c9"><span class="c18 c12 c6 c7">ROOOOK</span></p>
     <p class="c0"><span class="c2"></span></p>
     <p class="c1"><span class="c5">Titania</span></p>
     <p class="c1">
@@ -2120,6 +2121,11 @@
     <p class="c0"><span class="c2"></span></p>
     <p class="c1">
       <span class="c4">De ELFEN zingen en TITANIA valt in slaap.</span>
+    </p>
+    <p class="c9">
+      <span class="c2 c11"
+        >D7 6 blokken, lakens, kussens en bloemen met stage</span
+      >
     </p>
     <p class="c1">
       <span class="c4"
@@ -2153,6 +2159,7 @@
     <p class="c9">
       <span class="c6 c7">M3 FADE IN nachtelijke bosgeluiden</span>
     </p>
+    <p class="c9"><span class="c2 c11">D8 bed achter boom verplaatsen</span></p>
     <p class="c0"><span class="c2"></span></p>
     <p class="c9"><span class="c2 c8">[Cue 9]</span></p>
     <p class="c9">
@@ -2522,6 +2529,7 @@
     <p class="c9"><span class="c4 c8">[Cue 11]</span></p>
     <p class="c9"><span class="c4 c3">L8 Blackout</span></p>
     <p class="c9"><span class="c18 c12 c6 c7">M5 inloop muziek aan</span></p>
+    <p class="c9"><span class="c2 c11">D11 Bed af</span></p>
     <p class="c9"><span class="c4 c3">L9 Inloop licht aan</span></p>
     <p class="c0"><span class="c4 c7"></span></p>
     <p class="c1"><span class="c15 c12 c6 c24">Pauze</span></p>
